@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><title>Dashboard</title>
+<style>body{background:#0A0A0A;color:#fff;text-align:center;padding:40px}
+.card{background:#1A1A1A;border:2px solid #D4AF37;padding:30px;border-radius:15px;max-width:400px;margin:auto}
+.balance{font-size:40px;color:#D4AF37}</style></head><body>
+<div class="card">
+<h2>Welcome <span id="userName"></span></h2>
+<p>Account Balance</p>
+<div class="balance" id="balance">$0.00</div>
+</div>
+<script>
+let u = JSON.parse(localStorage.getItem('allUsers')).find(x=>x.email==localStorage.getItem('currentUser'));
+document.getElementById('userName').innerText=u.name;
+document.getElementById('balance').innerText='$'+u.balance.toFixed(2);
+</script></body></html>
