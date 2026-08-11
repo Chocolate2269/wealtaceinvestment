@@ -1,20 +1,20 @@
-<!DOCTYPE html><html><head><title>Signup</title>
-<style>body{background:#0A0A0A;color:#fff;padding:30px;text-align:center}
-input,button{padding:10px;margin:8px;width:250px;border-radius:5px;border:none}
-button{background:#D4AF37;color:#000;font-weight:bold}</style></head><body>
-<h2>Join WEALTACE</h2>
-<input id="name" placeholder="Full Name"><br>
-<input id="email" placeholder="Email"><br>
-<input id="password" type="password" placeholder="Password"><br>
-<button onclick="signup()">Sign Up</button>
-
-<script>
-function signup(){
-  let users = JSON.parse(localStorage.getItem('allUsers')) || [];
-  users.push({name:name.value,email:email.value,password:password.value,balance:0});
-  localStorage.setItem('allUsers',JSON.stringify(users));
-  localStorage.setItem('currentUser',email.value);
-  alert("Account Created!");
-  window.location.href="dashboard.html";
-}
-</script></body></html>
+<!DOCTYPE html><html><head><title>Wealtace Sign Up</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--blue:#002B7F;--red:#CE1126;--bg:#F0F4FF;}
+*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box}
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:100vh}
+.box{background:#fff;padding:40px;border-radius:15px;box-shadow:0 5px 20px rgba(0,43,127,0.1);width:90%;max-width:400px;border-top:5px solid var(--red)}
+h2{color:var(--blue);text-align:center;margin-bottom:25px}
+input{width:100%;padding:14px;margin:10px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
+.btn{width:100%;padding:15px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn:hover{background:var(--red)}
+.link{text-align:center;margin-top:15px;font-size:14px}
+</style>
+</head><body>
+<div class="box">
+<h2>🇺🇸 Create Account 🇨🇷</h2>
+<form onsubmit="event.preventDefault(); window.location.href='login.html'">
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email" required>
+<input
