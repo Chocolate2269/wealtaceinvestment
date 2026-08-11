@@ -1,14 +1,78 @@
-<!DOCTYPE html><html><head><title>Dashboard</title>
-<style>body{background:#0A0A0A;color:#fff;text-align:center;padding:40px}
-.card{background:#1A1A1A;border:2px solid #D4AF37;padding:30px;border-radius:15px;max-width:400px;margin:auto}
-.balance{font-size:40px;color:#D4AF37}</style></head><body>
-<div class="card">
-<h2>Welcome <span id="userName"></span></h2>
-<p>Account Balance</p>
-<div class="balance" id="balance">$0.00</div>
+<!DOCTYPE html><html><head><title>Wealtace Client Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+--cr-blue:#002B7F;
+--cr-red:#CE1126;
+--cr-white:#FFFFFF;
+--cr-green:#28a745;
+}
+*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box}
+body{background:#F0F4FF;color:#1A1A1A}
+.top-bar{background:var(--cr-blue);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--cr-red)}
+.logo{font-size:20px;font-weight:bold}
+.logout{color:#fff;text-decoration:none;font-weight:500}
+.container{max-width:600px;margin:40px auto;padding:20px}
+.welcome{background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);text-align:center;margin-bottom:30px;border-top:5px solid var(--cr-red)}
+.welcome h2{color:var(--cr-blue);margin-bottom:10px}
+.balance{font-size:32px;color:var(--cr-green);font-weight:bold;margin:15px 0}
+.grid{display:grid;grid-template-columns:1fr;gap:20px}
+.btn{padding:20px;border-radius:12px;text-decoration:none;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:12px;font-size:18px;border:none;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:0.3s}
+.btn:hover{transform:translateY(-3px)}
+.btn-deposit{background:var(--cr-green);color:#fff}
+.btn-withdraw{background:var(--cr-red);color:#fff}
+.btn-activate{background:var(--cr-blue);color:#fff}
+.footer{text-align:center;padding:30px;color:#666;font-size:14px}
+</style>
+</head><body>
+
+<div class="top-bar">
+<div class="logo">🇺🇸 WEALTACE DASHBOARD 🇨🇷</div>
+<a href="/" class="logout">Logout</a>
 </div>
-<script>
-let u = JSON.parse(localStorage.getItem('allUsers')).find(x=>x.email==localStorage.getItem('currentUser'));
-document.getElementById('userName').innerText=u.name;
-document.getElementById('balance').innerText='$'+u.balance.toFixed(2);
-</script></body></html>
+
+<div class="container">
+<div class="welcome">
+<h2>Welcome Back!</h2>
+<p>Account Status: <b style="color:var(--cr-green)">Active</b></p>
+<div class="balance">$0.00</div>
+<p>Available Balance</p>
+</div>
+
+<div class="grid">
+<button class="btn btn-deposit" onclick="Tawk_API.toggle()">
+💰 Deposit Funds
+</button>
+
+<button class="btn btn-withdraw" onclick="Tawk_API.toggle()">
+🏦 Withdraw Funds
+</button>
+
+<button class="btn btn-activate" onclick="Tawk_API.toggle()">
+⚡ Activate Account
+</button>
+</div>
+
+<p style="text-align:center;margin-top:25px;font-size:14px;color:#666">
+Click any button to chat with our support team 🇺🇸🇨🇷
+</p>
+</div>
+
+<div class="footer">
+<p>© 2026 Wealtace Investment. All Rights Reserved.</p>
+</div>
+
+<!-- Tawk.to Chat -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
+</body></html>
