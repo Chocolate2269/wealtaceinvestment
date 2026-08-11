@@ -1,12 +1,86 @@
-<!DOCTYPE html><html><head><title>Wealtace Investment</title>
+<!DOCTYPE html><html><head><title>Wealtace Investment - USA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-body{background:#0A0A0A;color:#fff;font-family:'Segoe UI',Arial;text-align:center;padding:50px}
-h1{color:#D4AF37;font-size:40px}
-.btn{background:#D4AF37;color:#0A0A0A;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;margin:10px}
+:root{
+--cr-blue:#002B7F;
+--cr-red:#CE1126;
+--cr-white:#FFFFFF;
+}
+*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box;scroll-behavior:smooth}
+body{background:#F0F4FF;color:#1A1A1A;line-height:1.7}
+.top-bar{background:var(--cr-blue);color:#fff;padding:10px 20px;text-align:center;font-size:14px;font-weight:500}
+nav{background:var(--cr-white);padding:15px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:4px solid var(--cr-red)}
+.logo{font-size:24px;font-weight:bold;color:var(--cr-blue);display:flex;align-items:center;gap:10px}
+.header{background:linear-gradient(180deg,var(--cr-blue) 33%,var(--cr-white) 33%,var(--cr-white) 66%,var(--cr-red) 66%);color:var(--cr-blue);padding:100px 20px;text-align:center}
+h1{font-size:46px;margin-bottom:15px}
+.btn{background:var(--cr-red);color:#fff;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin:10px;border:none;cursor:pointer;font-size:16px}
+.btn2{background:var(--cr-blue);color:#fff;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin:10px;border:none;cursor:pointer;font-size:16px}
+.container{max-width:1150px;margin:auto;padding:60px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin:35px 0}
+.card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);border-top:5px solid var(--cr-red)}
+.price{font-size:32px;color:var(--cr-red);font-weight:bold;margin:12px 0}
+.footer{background:var(--cr-blue);color:#fff;text-align:center;padding:40px 20px;border-top:5px solid var(--cr-red)}
 </style>
 </head><body>
-<h1>WEALTACE <span style="color:#fff">INVESTMENT</span></h1>
-<p>Grow Your Wealth With Trusted Investment</p>
-<a href="signup.html" class="btn">Get Started</a>
-<a href="login.html" class="btn">Login</a>
+
+<div class="top-bar">
+<span>🇺🇸</span> Proudly USA-Based Company | 24/7 Live Chat Support <span>🇺🇸</span>
+</div>
+
+<nav>
+<div class="logo"><span>🇺🇸</span> WEALTACE <span>🇨🇷</span></div>
+<div>
+<a href="#about" style="color:var(--cr-blue);text-decoration:none;margin:0 12px;font-weight:500">About</a>
+<a href="#plans" style="color:var(--cr-blue);text-decoration:none;margin:0 12px;font-weight:500">Plans</a>
+</div>
+</nav>
+
+<section class="header">
+<h1>WEALTACE INVESTMENT</h1>
+<p><b>USA Company</b> 🇺🇸 | Support Team in Costa Rica 🇨🇷</p>
+<div style="margin-top:30px">
+<button class="btn" onclick="Tawk_API.toggle()">Chat With Us</button>
+<button class="btn2">Client Login</button>
+</div>
+</section>
+
+<section class="container" id="plans">
+<h2>Investment Plans</h2>
+<div class="grid">
+<div class="card">
+<h3>PROMO 1</h3>
+<div class="price">$350</div>
+<p>Bank / Credit Union Withdrawal</p>
+<button class="btn" onclick="Tawk_API.toggle()">Ask About This Plan</button>
+</div>
+<div class="card">
+<h3>REGIONAL PLAN</h3>
+<div class="price">$500</div>
+<p>Regional Investment Access</p>
+<button class="btn" onclick="Tawk_API.toggle()">Ask About This Plan</button>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<p><b>WEALTACE INVESTMENT</b> 🇺🇸</p>
+<p>Headquarters: New York, NY USA | Support: San José, Costa Rica 🇨🇷</p>
+<p>© 2026 Wealtace. All Rights Reserved.</p>
+</footer>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
 </body></html>
