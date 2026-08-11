@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><title>Admin</title>
+<style>body{background:#0A0A0A;color:#D4AF37;padding:30px}
+table{width:100%;color:#fff} th{color:#D4AF37}
+button{background:#D4AF37;color:#000;border:none;padding:8px;border-radius:5px}</style></head><body>
+<h1>👑 WEALTACE ADMIN</h1>
+<table><thead><tr><th>Name</th><th>Email</th><th>Balance</th><th>Action</th></tr></thead><tbody id="t"></tbody></table>
+<script>
+if(prompt("ADMIN KEY")!="WealtaceBoss2026")location.href="index.html";
+function load(){let users=JSON.parse(localStorage.getItem('allUsers'))||[];
+t.innerHTML="";users.forEach((u,i)=>t.innerHTML+=`<tr><td>${u.name}</td><td>${u.email}</td><td>$${u.balance}</td><td><button onclick="c(${i})">CREDIT</button></td></tr>`)}
+function c(i){let amt=prompt("Amount");let users=JSON.parse(localStorage.getItem('allUsers'));users[i].balance+=+amt;localStorage.setItem('allUsers',JSON.stringify(users));load()}
+load();
+</script></body></html>
