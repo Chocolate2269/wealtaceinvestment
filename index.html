@@ -1,86 +1,136 @@
-<!DOCTYPE html><html><head><title>Wealtace Investment - USA</title>
+<!DOCTYPE html><html><head><title>Wealtace Investment</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-:root{
---cr-blue:#002B7F;
---cr-red:#CE1126;
---cr-white:#FFFFFF;
-}
-*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box;scroll-behavior:smooth}
-body{background:#F0F4FF;color:#1A1A1A;line-height:1.7}
-.top-bar{background:var(--cr-blue);color:#fff;padding:10px 20px;text-align:center;font-size:14px;font-weight:500}
-nav{background:var(--cr-white);padding:15px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:4px solid var(--cr-red)}
-.logo{font-size:24px;font-weight:bold;color:var(--cr-blue);display:flex;align-items:center;gap:10px}
-.header{background:linear-gradient(180deg,var(--cr-blue) 33%,var(--cr-white) 33%,var(--cr-white) 66%,var(--cr-red) 66%);color:var(--cr-blue);padding:100px 20px;text-align:center}
-h1{font-size:46px;margin-bottom:15px}
-.btn{background:var(--cr-red);color:#fff;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin:10px;border:none;cursor:pointer;font-size:16px}
-.btn2{background:var(--cr-blue);color:#fff;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin:10px;border:none;cursor:pointer;font-size:16px}
-.container{max-width:1150px;margin:auto;padding:60px 20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin:35px 0}
-.card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);border-top:5px solid var(--cr-red)}
-.price{font-size:32px;color:var(--cr-red);font-weight:bold;margin:12px 0}
-.footer{background:var(--cr-blue);color:#fff;text-align:center;padding:40px 20px;border-top:5px solid var(--cr-red)}
+:root{--blue:#002B7F;--red:#CE1126;--green:#28a745;--bg:#F0F4FF;}
+*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box}
+.top{background:#000;color:#fff;text-align:center;padding:8px;font-size:12px}
+.header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--red)}
+.logo{font-weight:bold;color:var(--blue);font-size:20px}
+.hero{background:var(--blue);color:#fff;text-align:center;padding:40px 20px;border-bottom:8px solid var(--red)}
+.auth-box{background:#fff;padding:30px;border-radius:15px;max-width:400px;margin:30px auto;box-shadow:0 5px 20px rgba(0,0,0,0.1);color:#000}
+.tabs{display:flex;margin-bottom:20px;border-bottom:2px solid #eee}
+.tab{flex:1;padding:12px;cursor:pointer;text-align:center;font-weight:bold;color:#666}
+.tab.active{color:var(--blue);border-bottom:3px solid var(--red)}
+.form{display:none}
+.form.active{display:block}
+input{width:100%;padding:14px;margin:10px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
+.btn{width:100%;padding:15px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn:hover{background:var(--red)}
+.success{color:var(--green);text-align:center;margin-top:10px;display:none;font-size:14px}
+.error{color:var(--red);text-align:center;margin-top:10px;display:none;font-size:14px}
+.plans{padding:40px 20px;max-width:900px;margin:auto}
+.card{background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1);margin:15px 0;border-top:4px solid var(--red)}
+.footer{background:var(--blue);color:#fff;text-align:center;padding:30px;margin-top:40px}
 </style>
 </head><body>
 
-<div class="top-bar">
-<span>🇺🇸</span> Proudly USA-Based Company | 24/7 Live Chat Support <span>🇺🇸</span>
+<div class="top">🇺🇸 Proudly USA-Based Company | 24/7 Live Chat Support 🇨🇷</div>
+
+<div class="header">
+<div class="logo">🇺🇸 WEALTACE 🇨🇷</div>
 </div>
 
-<nav>
-<div class="logo"><span>🇺🇸</span> WEALTACE <span>🇨🇷</span></div>
-<div>
-<a href="#about" style="color:var(--cr-blue);text-decoration:none;margin:0 12px;font-weight:500">About</a>
-<a href="#plans" style="color:var(--cr-blue);text-decoration:none;margin:0 12px;font-weight:500">Plans</a>
-</div>
-</nav>
-
-<section class="header">
+<div class="hero">
 <h1>WEALTACE INVESTMENT</h1>
-<p><b>USA Company</b> 🇺🇸 | Support Team in Costa Rica 🇨🇷</p>
-<div style="margin-top:30px">
-<button class="btn" onclick="Tawk_API.toggle()">Chat With Us</button>
-<button class="btn2">Client Login</button>
+<p>USA Company 🇺🇸 | Support Team in Costa Rica 🇨🇷</p>
 </div>
-</section>
 
-<section class="container" id="plans">
-<h2>Investment Plans</h2>
-<div class="grid">
-<div class="card">
-<h3>PROMO 1</h3>
-<div class="price">$350</div>
-<p>Bank / Credit Union Withdrawal</p>
-<button class="btn" onclick="Tawk_API.toggle()">Ask About This Plan</button>
+<!-- SIGN UP / LOGIN BOX ON HOMEPAGE -->
+<div class="auth-box">
+<div class="tabs">
+<div class="tab active" id="tab-signup" onclick="showTab('signup')">Sign Up</div>
+<div class="tab" id="tab-login" onclick="showTab('login')">Client Login</div>
 </div>
-<div class="card">
-<h3>REGIONAL PLAN</h3>
-<div class="price">$500</div>
-<p>Regional Investment Access</p>
-<button class="btn" onclick="Tawk_API.toggle()">Ask About This Plan</button>
-</div>
-</div>
-</section>
 
-<footer class="footer">
-<p><b>WEALTACE INVESTMENT</b> 🇺🇸</p>
+<!-- SIGN UP FORM -->
+<form id="signup" class="form active" onsubmit="signupUser(event)">
+<input type="text" id="s_name" placeholder="Full Name" required>
+<input type="email" id="s_email" placeholder="Email" required>
+<input type="password" id="s_pass" placeholder="Password" required>
+<button class="btn">Create Account</button>
+<p class="success" id="s_success">Account Created! Redirecting to Login...</p>
+<p class="error" id="s_error">This email already exists</p>
+</form>
+
+<!-- LOGIN FORM -->
+<form id="login" class="form" onsubmit="loginUser(event)">
+<input type="email" id="l_email" placeholder="Email" required>
+<input type="password" id="l_pass" placeholder="Password" required>
+<button class="btn">Login</button>
+<p class="error" id="l_error">Invalid email or password</p>
+</form>
+</div>
+
+<div class="plans" id="plans">
+<h2 style="color:var(--blue);text-align:center">Investment Plans</h2>
+<div class="card"><h3>PROMO 1</h3><h2 style="color:var(--red)">$350</h2><p>Bank / Credit Union Withdrawal</p></div>
+<div class="card"><h3>REGIONAL PLAN</h3><h2 style="color:var(--red)">$500</h2><p>Regional Investment Access</p></div>
+</div>
+
+<div class="footer">
+<p>WEALTACE INVESTMENT 🇺🇸</p>
 <p>Headquarters: New York, NY USA | Support: San José, Costa Rica 🇨🇷</p>
 <p>© 2026 Wealtace. All Rights Reserved.</p>
-</footer>
+</div>
 
+<script>
+function showTab(tab){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.form').forEach(f=>f.classList.remove('active'));
+document.getElementById(tab).classList.add('active');
+document.getElementById('tab-'+tab).classList.add('active');
+}
 
-<!--Start of Tawk.to Script-->
+// SIGN UP
+function signupUser(e){
+e.preventDefault();
+let name=document.getElementById('s_name').value;
+let email=document.getElementById('s_email').value.toLowerCase();
+let pass=document.getElementById('s_pass').value;
+let users=JSON.parse(localStorage.getItem('wealtace_users'))||[];
+
+if(users.find(u=>u.email===email)){
+document.getElementById('s_error').style.display='block';
+return;
+}
+
+users.push({name,email,password:pass,balance:0});
+localStorage.setItem('wealtace_users',JSON.stringify(users));
+
+document.getElementById('s_success').style.display='block';
+
+// Wait 2 seconds then go to login tab
+setTimeout(()=>{
+showTab('login');
+document.getElementById('l_email').value = email; // auto-fill email
+document.getElementById('s_success').style.display='none';
+}, 2000);
+}
+
+// LOGIN
+function loginUser(e){
+e.preventDefault();
+let email=document.getElementById('l_email').value.toLowerCase();
+let pass=document.getElementById('l_pass').value;
+let users=JSON.parse(localStorage.getItem('wealtace_users'))||[];
+let user=users.find(u=>u.email===email && u.password===pass);
+
+if(user){
+localStorage.setItem('wealtace_current_user',JSON.stringify(user));
+window.location.href='dashboard.html'; // GO TO DASHBOARD
+}else{
+document.getElementById('l_error').style.display='block';
+}
+}
+</script>
+
+<!-- Tawk.to -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
+s1.async=true;s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
+s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
-<!--End of Tawk.to Script-->
-
 </body></html>
