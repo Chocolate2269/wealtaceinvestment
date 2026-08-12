@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Wealtace Login</title>
+<title>Wealtace Client Dashboard</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="UTF-8">
 <style>
-:root{--cr-blue:#002B7F;--cr-red:#CE1126;--cr-green:#28a745;}
-body{margin:0;font-family:'Segoe UI',Arial;background:#F0F4FF;display:flex;justify-content:center;align-items:center;height:100vh}
-.login-box{background:#fff;padding:40px 30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);width:90%;max-width:400px;border-top:5px solid var(--cr-red)}
-.login-box h2{text-align:center;color:var(--cr-blue);margin-bottom:25px}
-.login-box input{width:100%;padding:14px;margin:10px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
-.login-box button{width:100%;padding:14px;background:var(--cr-blue);color:#fff;border:none;border-radius:8px;font-size:18px;font-weight:bold;cursor:pointer}
-.logo{text-align:center;font-size:22px;font-weight:bold;color:var(--cr-blue);margin-bottom:15px}
-.link{text-align:center;margin-top:15px;font-size:14px}
-.link a{color:var(--cr-blue);text-decoration:none;font-weight:bold}
+:root{ --cr-blue:#002B7F; --cr-red:#CE1126; --cr-green:#28a745; }
+*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box}
+body{background:#F0F4FF;color:#1A1A1A}
+.top-bar{background:var(--cr-blue);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--cr-red)}
+.logo{font-size:20px;font-weight:bold}
+.logout{color:#fff;text-decoration:none;font-weight:500;background:var(--cr-red);padding:8px 15px;border-radius:6px}
+.container{max-width:600px;margin:40px auto;padding:20px}
+.welcome{background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);text-align:center;margin-bottom:30px;border-top:5px solid var(--cr-red)}
+.balance{font-size:32px;color:var(--cr-green);font-weight:bold;margin:15px 0}
+.grid{display:grid;grid-template-columns:1fr;gap:20px}
+.btn{padding:20px;border-radius:12px;text-decoration:none;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:12px;font-size:18px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+.btn-deposit{background:var(--cr-green);color:#fff}
+.btn-withdraw{background:var(--cr-red);color:#fff}
+.btn-activate{background:var(--cr-blue);color:#fff}
 </style>
 </head>
 <body>
-<div class="login-box">
-  <div class="logo">🇺🇸 WEALTACE 🇨🇷</div>
-  <h2>Client Login</h2>
-  <form action="index.html" method="post">
-    <input type="email" placeholder="Email Address" required>
-    <input type="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-  <div class="link">Don't have an account? <a href="signup.html">Sign Up</a></div>
+<div class="top-bar">
+  <div class="logo">🇺🇸 WEALTACE DASHBOARD 🇨🇷</div>
+  <a href="login.html" class="logout">Logout</a>
+</div>
+<div class="container">
+  <div class="welcome">
+    <h2>Welcome Back!</h2>
+    <p>Account Status: <b style="color:var(--cr-green)">Active</b></p>
+    <div class="balance">$0.00</div>
+    <p>Available Balance</p>
+  </div>
+  <div class="grid">
+    <a href="Eth.html" class="btn btn-deposit">💰 Deposit Funds</a>
+    <a href="withdrawal.html" class="btn btn-withdraw">🏦 Withdraw Funds</a>
+    <a href="#" class="btn btn-activate" onclick="alert('Contact support to activate')">⚡ Activate Account</a>
+  </div>
 </div>
 </body>
 </html>
