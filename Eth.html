@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><title>Deposit ETH - Wealtace</title> <meta name="viewport" content="width=device-width,initial-scale=1"> <style> :root{--blue:#002B7F;--red:#CE1126;--green:#28a745;--bg:#F0F4FF;} *{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box} body{background:var(--bg);padding:20px} .container{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,43,127,0.1);border-top:5px solid var(--red);text-align:center} h1{color:var(--blue);margin-bottom:10px} .network{color:#666;font-size:14px;margin-bottom:20px} .wallet-box{background:#F0F4FF;padding:20px;border-radius:10px;margin:20px 0;border:2px dashed var(--blue)} .wallet-address{font-size:15px;font-weight:bold;word-break:break-all;color:#333;margin:10px 0} .copy-btn{background:var(--green);color:#fff;border:none;padding:12px 20px;border-radius:8px;cursor:pointer;font-weight:bold;width:100%} .copy-btn:active{background:#218838} .qr{margin:15px auto;width:220px;height:220px} .note{color:#555;font-size:14px;line-height:1.6;margin-top:20px;text-align:left} .back-btn{display:inline-block;margin-top:25px;background:var(--blue);color:#fff;padding:14px 25px;border-radius:8px;text-decoration:none;font-weight:bold} .warning{background:#fff3cd;border-left:4px solid #ffc107;padding:12px;margin:15px 0;border-radius:5px;font-size:13px} </style> </head><body> <div class="container"> <h1>💰 Deposit ETH</h1> <p class="network">Network: Ethereum (ERC20)</p> 
+
+<div class="wallet-box">
+<h3>Send ETH to this address</h3>
+<img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=0xd9affaadc761393c4b3b9c76c6cab34745b99550" alt="ETH QR Code">
+<div class="wallet-address" id="ethAddress">0xd9affaadc761393c4b3b9c76c6cab34745b99550</div>
+<button class="copy-btn" onclick="copyAddress()">📋 Copy Address</button>
+</div>
+
+<div class="warning">
+<b>⚠️ Important:</b> Only send ETH on Ethereum ERC20 network. Sending other coins or networks will result in loss.
+</div>
+
+<div class="note">
+<b>Instructions:</b><br>
+1. Minimum deposit: $50<br>
+2. After sending, click the green chat bubble to send proof of payment<br>
+3. Your balance will be updated within 24 hours
