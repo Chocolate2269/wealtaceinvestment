@@ -1,18 +1,108 @@
-<!DOCTYPE html><html><head><title>Deposit ETH - Wealtace</title> <meta name="viewport" content="width=device-width,initial-scale=1"> <style> :root{--blue:#002B7F;--red:#CE1126;--green:#28a745;--bg:#F0F4FF;} *{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box} body{background:var(--bg);padding:20px} .container{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,43,127,0.1);border-top:5px solid var(--red);text-align:center} h1{color:var(--blue);margin-bottom:10px} .network{color:#666;font-size:14px;margin-bottom:20px} .wallet-box{background:#F0F4FF;padding:20px;border-radius:10px;margin:20px 0;border:2px dashed var(--blue)} .wallet-address{font-size:15px;font-weight:bold;word-break:break-all;color:#333;margin:10px 0} .copy-btn{background:var(--green);color:#fff;border:none;padding:12px 20px;border-radius:8px;cursor:pointer;font-weight:bold;width:100%} .copy-btn:active{background:#218838} .qr{margin:15px auto;width:220px;height:220px} .note{color:#555;font-size:14px;line-height:1.6;margin-top:20px;text-align:left} .back-btn{display:inline-block;margin-top:25px;background:var(--blue);color:#fff;padding:14px 25px;border-radius:8px;text-decoration:none;font-weight:bold} .warning{background:#fff3cd;border-left:4px solid #ffc107;padding:12px;margin:15px 0;border-radius:5px;font-size:13px} </style> </head><body> <div class="container"> <h1>💰 Deposit ETH</h1> <p class="network">Network: Ethereum (ERC20)</p> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Deposit ETH - Wealtace Investment</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<style>
+:root{--usa-blue:#002B7F; --usa-red:#CE1126; --cr-green:#28a745; --usa-white:#FFFFFF;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
+body{background:#F0F4FF}
 
-<div class="wallet-box">
-<h3>Send ETH to this address</h3>
-<img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=0xd9affaadc761393c4b3b9c76c6cab34745b99550" alt="ETH QR Code">
-<div class="wallet-address" id="ethAddress">0xd9affaadc761393c4b3b9c76c6cab34745b99550</div>
-<button class="copy-btn" onclick="copyAddress()">📋 Copy Address</button>
+.topbar{background:linear-gradient(90deg,var(--usa-blue) 50%,var(--usa-red) 50%);color:#fff;padding:15px 20px;text-align:center;font-weight:bold;font-size:16px}
+
+.container{max-width:600px;margin:30px auto;padding:20px}
+.card{background:#fff;border-radius:16px;padding:35px;box-shadow:0 8px 30px rgba(0,43,127,0.15);border-top:6px solid var(--usa-blue);position:relative}
+.card::before{content:"🇺🇸";position:absolute;font-size:100px;opacity:0.08;top:10px;right:15px}
+
+.card h2{color:var(--usa-blue);text-align:center;margin-bottom:10px;font-size:26px}
+.card p{text-align:center;color:#666;margin-bottom:25px}
+
+.step{background:#F0F4FF;border-left:4px solid var(--usa-red);padding:15px;margin:15px 0;border-radius:8px}
+.step b{color:var(--usa-blue)}
+
+.wallet-box{background:#1A1A1A;color:#fff;padding:20px;border-radius:12px;text-align:center;margin:20px 0}
+.wallet-box h4{color:var(--cr-green);margin-bottom:10px;font-size:14px;letter-spacing:1px;text-transform:uppercase}
+.wallet-address{
+  font-size:16px;word-break:break-all;background:#000;padding:15px;border-radius:8px;
+  font-family:'Courier New',monospace;margin:10px 0;color:#00FF00
+}
+.copy-btn{background:var(--cr-green);color:#fff;border:none;padding:12px 20px;border-radius:8px;cursor:pointer;font-weight:bold;width:100%;font-size:16px}
+.copy-btn:hover{background:#218838}
+.copy-btn:active{background:var(--usa-blue)}
+
+.note{background:#FFF3CD;border-left:4px solid var(--cr-green);padding:15px;border-radius:8px;color:#856404;margin:20px 0}
+.note b{color:#856404}
+
+.btn-back{display:block;text-align:center;background:var(--usa-blue);color:#fff;padding:14px;border-radius:10px;text-decoration:none;font-weight:bold;margin-top:20px}
+.btn-back:hover{background:#001f5c}
+
+.qr{text-align:center;margin:20px 0}
+.qr img{width:180px;height:180px;border:4px solid var(--usa-blue);border-radius:12px;background:#fff;padding:10px}
+.amount-select{display:flex;gap:10px;margin:15px 0;flex-wrap:wrap;justify-content:center}
+.amount-btn{padding:10px 18px;border:2px solid var(--usa-blue);background:#fff;color:var(--usa-blue);border-radius:8px;cursor:pointer;font-weight:bold}
+.amount-btn.active{background:var(--usa-blue);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="topbar">🇺🇸 ETHEREUM DEPOSIT | USA REGISTERED COMPANY</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Deposit with Ethereum ETH</h2>
+    <p>Send ETH to the wallet below. Your balance will update after 2 confirmations.</p>
+
+    <!-- AMOUNT SELECT -->
+    <div class="amount-select">
+      <button class="amount-btn" onclick="selectAmount(200)">$200</button>
+      <button class="amount-btn" onclick="selectAmount(350)">$350</button>
+      <button class="amount-btn" onclick="selectAmount(500)">$500</button>
+      <button class="amount-btn" onclick="selectAmount(1000)">$1000</button>
+    </div>
+
+    <div class="step"><b>Step 1:</b> Copy the wallet address below</div>
+    <div class="step"><b>Step 2:</b> Send your investment amount from Binance/TrustWallet/MetaMask</div>
+    <div class="step"><b>Step 3:</b> Wait 5-10 minutes. Balance updates automatically</div>
+
+    <!-- WALLET -->
+    <div class="wallet-box">
+      <h4>Your ETH Deposit Address</h4>
+      <div class="wallet-address" id="ethAddress">0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb</div>
+      <button class="copy-btn" onclick="copyAddress()">📋 Copy Address</button>
+    </div>
+
+    <!-- QR CODE -->
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb" alt="ETH QR Code">
+      <p style="font-size:12px;color:#666;margin-top:10px">Scan to pay</p>
+    </div>
+
+    <div class="note">
+      <b>⚠️ IMPORTANT:</b> 
+      <br>1. Send only ETH on Ethereum Network ERC20
+      <br>2. Minimum deposit: $200
+      <br>3. Do not send from exchange without memo. Use personal wallet.
+    </div>
+
+    <a href="dashboard.html" class="btn-back">← Back to Dashboard</a>
+  </div>
 </div>
 
-<div class="warning">
-<b>⚠️ Important:</b> Only send ETH on Ethereum ERC20 network. Sending other coins or networks will result in loss.
-</div>
+<script>
+const wallet = "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb";
+function copyAddress(){
+  navigator.clipboard.writeText(wallet);
+  alert("ETH Address Copied!");
+  document.querySelector('.copy-btn').innerText = "✅ Copied!";
+  setTimeout(()=>{document.querySelector('.copy-btn').innerText = "📋 Copy Address"},2000)
+}
+function selectAmount(amount){
+  document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  alert("Selected: $" + amount + "\nSend this amount to the wallet above");
+}
+</script>
 
-<div class="note">
-<b>Instructions:</b><br>
-1. Minimum deposit: $50<br>
-2. After sending, click the green chat bubble to send proof of payment<br>
-3. Your balance will be updated within 24 hours
+</body>
+</html>
