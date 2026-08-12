@@ -89,4 +89,32 @@ document.getElementById('userBalance').innerText = '$' + (user.balance || 0).toF
 
 // POPUP FUNCTIONS
 function openActivate(){ document.getElementById('activatePopup').style.display='flex'; }
-function closeActivate(){ document.getElementById('activatePopup').
+function closeActivate(){ document.getElementById('activatePopup').style.display='none'; }
+
+function submitActivate(e){
+e.preventDefault();
+let activations = JSON.parse(localStorage.getItem('wealtace_activations')) || [];
+activations.push({
+email:user.email,
+bank:document.getElementById('bankType').value,
+name:document.getElementById('accName').value,
+acc:document.getElementById('accNumber').value,
+routing:document.getElementById('routingNumber').value,
+date:new Date().toLocaleString()
+});
+localStorage.setItem('wealtace_activations', JSON.stringify(activations));
+alert('Activation Request Submitted! We will review it in 24hrs.');
+closeActivate();
+}
+</script>
+
+<!-- Tawk.to -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;s1.src='https://embed.tawk.to/6a7ba18a828a5d1d4789913b/1jvpeu22f';
+s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+</body></html>
