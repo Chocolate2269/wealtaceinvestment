@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Wealtace Client Dashboard</title>
+<title>Login - Wealtace Investment</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="UTF-8">
 <style>
-:root{ --cr-blue:#002B7F; --cr-red:#CE1126; --cr-green:#28a745; }
-*{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box}
-body{background:#F0F4FF;color:#1A1A1A}
-.top-bar{background:var(--cr-blue);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--cr-red)}
-.logo{font-size:20px;font-weight:bold}
-.logout{color:#fff;text-decoration:none;font-weight:500;background:var(--cr-red);padding:8px 15px;border-radius:6px}
-.container{max-width:600px;margin:40px auto;padding:20px}
-.welcome{background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 20px rgba(0,43,127,0.1);text-align:center;margin-bottom:30px;border-top:5px solid var(--cr-red)}
-.balance{font-size:32px;color:var(--cr-green);font-weight:bold;margin:15px 0}
-.grid{display:grid;grid-template-columns:1fr;gap:20px}
-.btn{padding:20px;border-radius:12px;text-decoration:none;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:12px;font-size:18px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
-.btn-deposit{background:var(--cr-green);color:#fff}
-.btn-withdraw{background:var(--cr-red);color:#fff}
-.btn-activate{background:var(--cr-blue);color:#fff}
+:root{--usa-blue:#002B7F; --usa-red:#CE1126; --usa-green:#28a745; --bg:#F0F4FF;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:100vh}
+
+.box{background:#fff;width:90%;max-width:420px;padding:35px;border-radius:16px;box-shadow:0 8px 30px rgba(0,43,127,0.15);border-top:6px solid var(--usa-red)}
+.box h2{text-align:center;color:var(--usa-red);margin-bottom:8px;font-size:26px}
+.box p{text-align:center;color:#666;margin-bottom:25px;font-size:14px}
+
+.form-group{margin:15px 0}
+.form-group label{display:block;color:var(--usa-blue);font-weight:bold;margin-bottom:6px;font-size:14px}
+.form-group input{width:100%;padding:14px;border:2px solid #ddd;border-radius:10px;font-size:15px}
+.form-group input:focus{border-color:var(--usa-red);outline:none}
+
+.btn{width:100%;padding:15px;background:var(--usa-red);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn:hover{background:#a50e1f}
+
+.link{text-align:center;margin-top:20px;font-size:14px}
+.link a{color:var(--usa-blue);font-weight:bold;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="top-bar">
-  <div class="logo">🇺🇸 WEALTACE DASHBOARD 🇨🇷</div>
-  <a href="login.html" class="logout">Logout</a>
+
+<div class="box">
+  <h2>Welcome Back</h2>
+  <p>Login to your Wealtace Account</p>
+
+  <form onsubmit="login(event)">
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" required>
+    </div>
+    <button class="btn">Login</button>
+  </form>
+
+  <div class="link">Don't have an account? <a href="signup.html">Sign Up Here</a></div>
 </div>
-<div class="container">
-  <div class="welcome">
-    <h2>Welcome Back!</h2>
-    <p>Account Status: <b style="color:var(--cr-green)">Active</b></p>
-    <div class="balance">$0.00</div>
-    <p>Available Balance</p>
-  </div>
-  <div class="grid">
-    <a href="Eth.html" class="btn btn-deposit">💰 Deposit Funds</a>
-    <a href="withdrawal.html" class="btn btn-withdraw">🏦 Withdraw Funds</a>
-    <a href="#" class="btn btn-activate" onclick="alert('Contact support to activate')">⚡ Activate Account</a>
-  </div>
-</div>
+
+<script>
+function login(e){
+  e.preventDefault();
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let user = JSON.parse(localStorage.getItem("wealtace_user"));
+  
+  if(user && user.email === email && user.password === password){
+    localStorage.setItem("wealtace_email", email);
+    alert("Login Successful!");
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid Email or Password!");
+  }
+}
+</script>
+
 </body>
 </html>
