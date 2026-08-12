@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><title>Withdraw - Wealtace</title> <meta name="viewport" content="width=device-width,initial-scale=1"> <style> :root{--blue:#002B7F;--red:#CE1126;--green:#28a745;--bg:#F0F4FF;} *{margin:0;padding:0;font-family:'Segoe UI',Arial;box-sizing:border-box} body{background:var(--bg);padding:20px} .container{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,43,127,0.1);border-top:5px solid var(--red)} h1{color:var(--blue);text-align:center;margin-bottom:25px} .option-box{background:#F0F4FF;padding:20px;border-radius:12px;margin:15px 0;border:2px solid #ddd;cursor:pointer;transition:0.3s} .option-box:hover{border-color:var(--blue);background:#E6EEFF} .option-box h3{color:var(--blue);margin-bottom:8px} .option-box p{color:#555;font-size:14px} .form-group{margin:15px 0;display:none} .form-group.active{display:block} .form-group label{font-weight:600;color:#333;display:block;margin-bottom:6px} .form-group input,.form-group select{width:100%;padding:14px;border:1px solid #ddd;border-radius:8px;font-size:16px} .btn{background:var(--red);color:#fff;border:none;padding:16px;width:100%;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:10px} .btn:hover{background:#b01022} .btn-green{background:var(--green)} .back-btn{display:block;text-align:center;margin-top:20px;background:var(--blue);color:#fff;padding:14px;border-radius:8px;text-decoration:none;font-weight:bold} .balance-info{text-align:center;background:#E8F5E9;padding:15px;border-radius:10px;margin-bottom:20px;color:var(--green);font-weight:bold;font-size:18px} </style> </head><body> <div class="container"> <h1>🏦 Withdraw Funds</h1> 
+
+<div class="balance-info">
+Available Balance: <span id="balance">$0.00</span>
+</div>
+
+<div class="option-box" onclick="showForm('bank')">
+<h3>1. Bank Withdrawal</h3>
+<p>Withdraw to your US Bank Account. Processing: 1-3 business days</p>
+</div>
+
+<div class="option-box" onclick="showForm('crypto')">
+<h3>2. Crypto Withdrawal</h3>
+<p>Withdraw ETH to your wallet. Processing: Within 24 hours</p>
+</div>
+
+<!-- BANK FORM -->
+<div id="bankForm" class="form-group">
+<h3 style="color:var(--blue);margin-bottom:15px">Bank Withdrawal</h3>
+<form onsubmit="submitBank(event)">
+<input type="number" id="bankAmount" placeholder="Amount to Withdraw $" required>
+<input type="text" id="bankName" placeholder="Bank Name" required>
+<input type="text" id="bankAccName" placeholder="Account Holder Name" required>
+<input type="text" id="bankAccNumber" placeholder="Account Number" required>
+<input type="text" id="bankRouting" placeholder="Routing Number" required>
+<button class="btn">Request Bank Withdrawal</button>
+</form>
+</div>
+
+<!-- CRYPTO FORM -->
+<div id="cryptoForm" class="form-group">
+<h3 style="color:var(--blue);margin-bottom:15px">Crypto Withdrawal</h3>
+<form onsubmit="submitCrypto(event)">
+<input type="number" id="cryptoAmount" placeholder="Amount to Withdraw $" required>
+<select id="cryptoType" required>
+<option value="">Select Coin</option>
+<option value="ETH">ETH - Ethereum</option>
+<option value="USDT">USDT - Tether ERC20</option>
+</select>
+<input type="text" id="cryptoWallet" placeholder="Your Wallet Address
