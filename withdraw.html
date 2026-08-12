@@ -27,4 +27,141 @@ body{background:var(--bg)}
 .balance-show .amount{font-size:32px;font-weight:900;margin:8px 0}
 
 .form-group{margin:15px 0}
-.form-group label{display:block;color:var(--
+.form-group label{display:block;color:var(--usa-blue);font-weight:bold;margin-bottom:8px;font-size:15px}
+.form-group input, .form-group select{
+  width:100%;padding:14px;border:2px solid #ddd;border-radius:10px;font-size:16px
+}
+.form-group input:focus, .form-group select:focus{border-color:var(--usa-red);outline:none}
+
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+.method-btn{padding:15px;border:2px solid #ddd;border-radius:10px;text-align:center;cursor:pointer;background:#fff;font-weight:bold}
+.method-btn.active{border-color:var(--usa-blue);background:#F0F4FF;color:var(--usa-blue)}
+
+.btn-withdraw{width:100%;padding:16px;background:var(--usa-red);color:#fff;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:15px}
+.btn-withdraw:hover{background:#a50e1f}
+
+.note{background:#F8D7DA;border-left:4px solid var(--usa-red);padding:15px;border-radius:8px;color:#721c24;margin:20px 0;font-size:14px}
+
+.btn-back{display:block;text-align:center;background:var(--usa-blue);color:#fff;padding:14px;border-radius:10px;text-decoration:none;font-weight:bold;margin-top:15px}
+.btn-back:hover{background:#001f5c}
+
+.success-msg{display:none;background:#D4EDDA;border-left:4px solid var(--usa-green);padding:15px;border-radius:8px;color:#155724;margin:20px 0}
+</style>
+</head>
+<body>
+
+<div class="topbar">WITHDRAWAL REQUEST | USA REGISTERED COMPANY</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Withdraw Funds</h2>
+    <p>Send to your wallet or any bank. Processing: 24 hours</p>
+
+    <!-- CURRENT BALANCE -->
+    <div class="balance-show">
+      <h4>AVAILABLE BALANCE</h4>
+      <div class="amount" id="balance">$0.00</div>
+      <div>USD</div>
+    </div>
+
+    <form onsubmit="submitWithdraw(event)">
+      <div class="form-group">
+        <label>Withdrawal Amount USD</label>
+        <input type="number" id="amount" placeholder="Minimum $50" min="50" required>
+      </div>
+
+      <div class="form-group">
+        <label>Withdrawal Option</label>
+        <div class="method-grid">
+          <div class="method-btn active" onclick="selectMethod('wallet')">💰<br>Client Wallet</div>
+          <div class="method-btn" onclick="selectMethod('bank')">🏦<br>Any Bank</div>
+        </div>
+        <input type="hidden" id="method" value="wallet">
+      </div>
+
+      <!-- CLIENT WALLET FIELDS -->
+      <div id="walletFields">
+        <div class="form-group">
+          <label>Select Wallet Type</label>
+          <select id="walletType" required>
+            <option value="">Choose Wallet</option>
+            <option value="ETH">Ethereum ETH</option>
+            <option value="USDT">USDT TRC20</option>
+            <option value="BTC">Bitcoin BTC</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Wallet Address</label>
+          <input type="text" id="walletAddress" placeholder="Enter your wallet address" required>
+        </div>
+      </div>
+
+      <!-- BANK FIELDS -->
+      <div id="bankFields" style="display:none">
+        <div class="form-group">
+          <label>Bank Name</label>
+          <input type="text" id="bankName" placeholder="e.g. Chase Bank, GTBank">
+        </div>
+        <div class="form-group">
+          <label>Account Name</label>
+          <input type="text" id="accountName" placeholder="Full name on account">
+        </div>
+        <div class="form-group">
+          <label>Account Number</label>
+          <input type="text" id="accountNumber" placeholder="Enter account number">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-withdraw">💸 Request Withdrawal</button>
+    </form>
+
+    <div class="success-msg" id="success">
+      ✅ Withdrawal request submitted! <br>Funds will be sent within 24 hours.
+    </div>
+
+    <div class="note">
+      <b>⚠️ NOTE:</b> 
+      <br>1. Minimum withdrawal: $50
+      <br>2. Processing fee: 5%
+      <br>3. Double check wallet/bank details before submitting
+    </div>
+
+    <a href="dashboard.html" class="btn-back">← Back to Dashboard</a>
+  </div>
+</div>
+
+<script>
+// Load balance from localStorage
+document.getElementById("balance").innerText = "$" + (localStorage.getItem("wealtace_balance") || "0.00");
+
+function selectMethod(type){
+  document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById("method").value = type;
+  
+  if(type === 'wallet'){
+    document.getElementById("walletFields").style.display = "block";
+    document.getElementById("bankFields").style.display = "none";
+  } else {
+    document.getElementById("walletFields").style.display = "none";
+    document.getElementById("bankFields").style.display = "block";
+  }
+}
+
+function submitWithdraw(e){
+  e.preventDefault();
+  let amount = parseFloat(document.getElementById("amount").value);
+  let method = document.getElementById("method").value;
+  
+  if(amount < 50){ alert("Minimum withdrawal is $50"); return; }
+  
+  document.getElementById("success").style.display = "block";
+  e.target.reset();
+  selectMethod('wallet');
+  
+  setTimeout(()=>{document.getElementById("success").style.display = "none"},5000)
+}
+</script>
+
+</body>
+</html>
