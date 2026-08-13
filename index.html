@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Wealtace Investment | USA & Costa Rica</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta charset="UTF-8">
-<style>
-:root{--usa-blue:#002B7F; --usa-red:#CE1126; --cr-green:#28a745; --cr-gold:#FFD700;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
-body{background:#F0F4FF;color:#1A1A1A}
-
-.topbar{background:linear-gradient(90deg,var(--usa-blue) 50%,var(--usa-red) 50%);color:#fff;text-align:center;padding:10px;font-weight:bold;font-size:14px}
-header{background:#fff;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-.logo{font-size:32px;font-weight:bold;color:var(--usa-blue)}
-.logo span{color:var(--usa-red)}
-nav{margin-top:15px}
-nav a{background:var(--usa-blue);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;margin:5px;font-weight:bold;display:inline-block}
-
-.hero{
-  background: linear-gradient(rgba(0,43,127,0.85), rgba(206,17,38,0.85)), url('https://flagcdn.com/w1600/us.jpg') center/cover no-repeat;
-  color:#fff;padding:80px 20px;text-align:center
-}
-.hero h1{font-size:32px;margin-bottom:15px}
-.hero p{font-size:18px;margin-bottom:25px}
-.btn-main{background:var(--cr-green);color:#fff;padding:16px 35px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:18px;display:inline-block}
-
-.about{padding:50px 20px;max-width:900px;margin:auto;text-align:center;background:#fff}
-.about h2{color:var(--usa-blue);font-size:28px;margin-bottom:20px}
-.about p{font-size:16px;line-height:1.8;color:#444}
-
-.plans{padding:50px 20px}
-.plans h2{text-align:center;color:var(--usa-blue);font-size:28px;margin-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;max-width:1100px;margin:auto}
-.card{background:#fff;border-radius:15px;padding:30px;text-align:center;border-top:6px solid var(--usa-red);box-shadow:0 5px 20px rgba(0,43,127,0.1);position:relative}
-.card::before{content:"🇺🇸";position:absolute;font-size:100px;opacity:0.08;top:10px;right:10px}
-.card.promo{border-top:6px solid var(--cr-gold)}
-.flag{font-size:40px;margin-bottom:10px}
-.plan-name{font-size:20px;color:var(--usa-blue);font-weight:bold}
-.invest{font-size:34px;color:var(--usa-red);font-weight:bold;margin:10px 0}
-.return{font-size:22px;color:var(--cr-green);font-weight:bold}
-.time{color:#666;margin:10px 0}
-.btn-plan{background:var(--usa-blue);color:#fff;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:10px}
-
-footer{background:var(--usa-blue);color:#fff;text-align:center;padding:25px;margin-top:40px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wealtace Investment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg,#002B7F,#CE1126);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #002B7F;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #002B7F;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: #CE1126;
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">🇺🇸 USA REGISTERED COMPANY | 🇨🇷 OPERATIONS IN COSTA RICA</div>
+  <header>
+    Wealtace Investment
+  </header>
 
-<header>
-  <div class="logo">WEALTACE<span>INVESTMENT</span></div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#plans">Investment Plans</a>
-    <a href="login.html">Client Login</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h1>🇺🇸 Secure Digital Investment Platform 🇺🇸</h1>
-  <p>Invest with confidence. High returns in 2 hours. USA backed, Costa Rica operated.</p>
-  <a href="signup.html" class="btn-main">Get Started Today</a>
-</section>
-
-<section id="about" class="about">
-  <h2>About WealtaceInvestment</h2>
-  <p><b>WealtaceInvestment</b> is a USA registered investment company with operations in Costa Rica. We provide secure and fast digital investment opportunities for our global clients. Our platform is designed for full transparency, quick payouts, and 24/7 support. With 4 investment packages, we help investors grow their funds within 2 hours.</p>
-</section>
-
-<section id="plans" class="plans">
-  <h2>Our Investment Plans</h2>
-  <div class="grid">
-    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">STARTER PLAN</div><div class="invest">$200</div><div class="return">Get ₦700,000</div><div class="time">Duration: 2 Hours</div><a href="signup.html" class="btn-plan">Invest Now</a></div>
-    <div class="card promo"><div class="flag">🇺🇸</div><div class="plan-name">PROMO INVESTORS 🔥</div><div class="invest">$350</div><div class="return">Get ₦1,500,000</div><div class="time">Duration: 2 Hours | Limited</div><a href="signup.html" class="btn-plan">Invest Now</a></div>
-    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">PREMIUM PLAN</div><div class="invest">$500</div><div class="return">Get ₦3,000,000</div><div class="time">Duration: 2 Hours</div><a href="signup.html" class="btn-plan">Invest Now</a></div>
-    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">VIP PLAN</div><div class="invest">$1000</div><div class="return">Get ₦5,000,000</div><div class="time">Duration: 2 Hours</div><a href="signup.html" class="btn-plan">Invest Now</a></div>
+  <div class="container">
+    <h1>Welcome to Wealtace</h1>
+    <p>Grow your wealth with trusted investment plans. Secure, transparent, and profitable.</p>
+    <a href="#" class="btn">Get Started</a>
   </div>
-</section>
 
-<footer><p>© 2026 WealtaceInvestment. 🇺🇸 USA & 🇨🇷 Costa Rica. All Rights Reserved.</p></footer>
+  <!-- CHATWAY LIVE CHAT - AUTO POPUP IN 1 SECOND -->
+  <script>
+    // Chatway settings
+    window.chatwaySettings = {
+      greeting: "👋 Hi! Welcome to Wealtace Investment. How can we help you today?",
+      themeColor: "#002B7F",
+      position: "right"
+    };
+
+    // Auto open chat after 1 second
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (window.Chatway) {
+          Chatway('open');
+        }
+      }, 1000);
+    });
+  </script>
+
+  <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=EDicIiTepGoB"></script>
 
 </body>
 </html>
