@@ -1,36 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Sign Up - WeltaceInvestment</title>
-<meta charset="UTF-8">
-<style>
-body{margin:0;font-family:Arial;background:#F0F4FF;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.top{background:linear-gradient(90deg,#002B7F 50%,#CE1126 50%);color:#fff;text-align:center;padding:15px;font-weight:bold;position:fixed;top:0;width:100%}
-.box{background:#fff;padding:40px;border-radius:15px;box-shadow:0 5px 20px #ccc;width:90%;max-width:400px;margin-top:80px}
-h2{text-align:center;color:#002B7F;margin-bottom:20px}
-input{width:100%;padding:12px;margin:10px 0;border:2px solid #002B7F;border-radius:8px;font-size:15px}
-.btn{width:100%;background:#28a745;color:#fff;padding:15px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:16px;margin-top:10px}
-</style>
-</head>
-<body>
-<div class="top">🇺🇸 USA REGISTERED | 🇨🇷 COSTA RICA</div>
-<div class="box">
-<h2>🇺🇸 Create Your Account</h2>
-<form onsubmit="goDashboard();return false;">
-<input type="text" placeholder="Full Name" required>
-<input type="email" placeholder="Email Address" required>
-<input type="password" placeholder="Create Password" required>
-<input type="text" placeholder="Phone Number" required>
-<button class="btn">Sign Up & Go To Dashboard</button>
-</form>
-<p style="text-align:center;margin-top:15px;font-size:14px">Already have account? <a href="dashboard.html">Login Here</a></p>
-</div>
-
 <script>
 function goDashboard(){
+  // Get the email that was typed
+  let email = document.querySelector('input[type="email"]').value;
+  
+  // Save it to browser memory
+  localStorage.setItem("userEmail", email);
+  
   alert("Account Created Successfully!");
   window.location.href = "dashboard.html";
 }
 </script>
-</body>
-</html>
