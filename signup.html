@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head><title>Sign Up</title>
-<style>body{font-family:Arial;background:#F0F4FF;padding:20px}.card{max-width:400px;margin:50px auto;background:#fff;padding:30px;border-radius:12px}input{width:100%;padding:12px;margin:10px 0;border:2px solid #002B7F;border-radius:8px}button{background:#28a745;color:#fff;padding:15px;width:100%;border:none;border-radius:8px;font-weight:bold;cursor:pointer}</style>
+<head>
+<title>Sign Up - WeltaceInvestment USA</title>
+<meta charset="UTF-8">
+<style>
+body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
+.card{background:#fff;padding:30px;border-radius:12px;max-width:400px;margin:50px auto;border-top:5px solid #3C3B6E}
+h2{color:#3C3B6E;text-align:center}
+input{width:100%;padding:12px;margin:10px 0;border:2px solid #3C3B6E;border-radius:8px}
+.btn{background:#28a745;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="card">
-<h2 style="color:#002B7F;text-align:center">Create Account</h2>
+<h2>🇺🇸 Create Account</h2>
 <input type="text" id="name" placeholder="Full Name">
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
-<button onclick="signup()">Sign Up</button>
+<button onclick="signup()" class="btn">Sign Up</button>
 <p style="text-align:center">Already have account? <a href="login.html">Login</a></p>
 </div>
+
 <script>
 function signup(){
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
+  
   if(!name || !email || !password){ alert("Fill all fields"); return; }
   
+  // SAVE TO LOCALSTORAGE - THIS IS THE KEY
   localStorage.setItem("userName", name);
   localStorage.setItem("userEmail", email);
   localStorage.setItem("userPassword", password);
-  localStorage.setItem("userBalance", "0.00");
+  localStorage.setItem("userBalance", "0.00"); // Start with $0
   
-  alert("Account Created!");
+  alert("Account Created! Please Login");
   window.location.href = "login.html";
 }
 </script>
