@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Admin Panel - WeltaceInvestment</title>
-<script>
-if(localStorage.getItem("isAdminLoggedIn")!== "true"){
-  window.location.href = "admin-login.html";
-}
-</script>
+<head><title>Admin Panel</title>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:Arial;padding:20px;margin:0}
-h1{text-align:center;color:#3C3B6E}
-.container{max-width:600px;margin:30px auto;background:#1a1a1a;padding:30px;border-radius:12px;border:1px solid #3C3B6E}
-input{width:95%;padding:12px;margin:10px 0;background:#222;border:1px solid #444;color:#fff;border-radius:6px}
-.btn{background:#3C3B6E;color:#fff;border:none;padding:12px 20px;cursor:pointer;border-radius:6px;font-weight:bold}
-.logout{position:absolute;top:20px;right:20px;background:#ff4d4d;color:#fff;border:none;padding:8px 15px;border-radius:5px;cursor:pointer}
-.success{color:#4CAF50;margin-top:10px}
+body{background:#111;color:#fff;font-family:Arial;padding:20px}
+table{width:100%;background:#222;border-collapse:collapse}
+th,td{padding:12px;border:1px solid #444;text-align:left}
+th{background:#3C3B6E}
+input{padding:8px}
+.btn{background:#28a745;color:#fff;border:none;padding:8px 12px;cursor:pointer;border-radius:5px}
 </style>
 </head>
 <body>
-
-<button class="logout" onclick="localStorage.removeItem('isAdminLoggedIn');location='admin-login.html'">Logout</button>
-
-<h1>🌍 WeltaceInvestment Admin</h1>
-
-<div class="container">
-  <h2>Add Credits to User</h2>
-  <input type="email" id="userEmail" placeholder="User Email" required>
-  <input type="number" id="amount" placeholder="Amount $" required>
-  <button class="btn" onclick="addCredit()">Add Credit</button>
-  <p id="msg" class="success"></p>
-</div>
+<h1>🇺🇸 Admin Panel - All Users</h1>
+<table id="userTable">
+<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>
+</table>
 
 <script>
-function addCredit(){
-  let email = document.getElementById("userEmail").value.trim();
-  let amount = parseFloat(document.getElementById("amount").value);
-  let msg = document.getElementById("msg");
+function loadUsers(){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let table = document.getElementById("userTable");
+  table.innerHTML = "<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>";
 
-  if(!email ||!amount){ msg.style.color="#ff4d4d"; msg.innerText="Fill all fields"; return; }
-
-  let credits = JSON.parse(localStorage.getItem("weltace_credits")) || {};
-  credits[email] = (credits[email] || 0) + amount;
-  localStorage.setItem("weltace_credits", JSON.stringify(credits));
-
-  msg.style.color="#4CAF50";
-  msg.innerText=`✅ $${amount} added to ${email}`;
-  document.getElementById("userEmail").value = "";
-  document.getElementById("amount").value = "";
+  users.forEach((u, index) => {
+    table.innerHTML += `
+    <tr>
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+      <td>$${parseFloat(u.balance).toFixed(2)}</td>
+      <td><input type="number" id="add${index}" placeholder="100">
+      <button class="btn" onclick="addBalance(${index})">Add</button></td>
+    </tr>`;
+  });
 }
+
+function addBalance(index){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let amount = parseFloat(document.getElementById("add"+index).value);
+  if(amount > 0){
+    users[index].balance += amount;
+    localStorage.setItem("users", JSON.stringify(users));
+    loadUsers();
+    alert("$"+amount+" added to "+users[index].name);
+  }
+}
+loadUsers();
 </script>
 </body>
 </html>
