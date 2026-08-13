@@ -1,53 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Login - WeltaceInvestment</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{margin:0;font-family:Arial;background:#F0F4FF;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.top{background:linear-gradient(90deg,#002B7F 50%,#CE1126 50%);color:#fff;text-align:center;padding:15px;font-weight:bold;position:fixed;top:0;width:100%}
-.box{background:#fff;padding:40px;border-radius:15px;box-shadow:0 5px 20px #ccc;width:90%;max-width:400px;margin-top:80px}
-h2{text-align:center;color:#002B7F;margin-bottom:20px}
-input{width:100%;padding:12px;margin:10px 0;border:2px solid #002B7F;border-radius:8px;font-size:15px;box-sizing:border-box}
-.btn{width:100%;background:#002B7F;color:#fff;padding:15px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:16px;margin-top:10px}
-.error{color:red;text-align:center;font-size:14px;margin-top:10px;display:none}
-</style>
+<head><title>Login</title>
+<style>body{font-family:Arial;background:#F0F4FF;padding:20px}.card{max-width:400px;margin:50px auto;background:#fff;padding:30px;border-radius:12px}input{width:100%;padding:12px;margin:10px 0;border:2px solid #002B7F;border-radius:8px}button{background:#002B7F;color:#fff;padding:15px;width:100%;border:none;border-radius:8px;font-weight:bold;cursor:pointer}</style>
 </head>
 <body>
-<div class="top">🇺🇸 USA REGISTERED | 🇨🇷 COSTA RICA</div>
-<div class="box">
-<h2>🇺🇸 Login To Your Account</h2>
-<form onsubmit="login();return false;">
-<input type="email" id="loginEmail" placeholder="Email Address" required>
-<input type="password" id="loginPassword" placeholder="Password" required>
-<button class="btn">Login</button>
-<div id="errorMsg" class="error">Wrong Email or Password!</div>
-</form>
-<p style="text-align:center;margin-top:15px;font-size:14px">Don't have account? <a href="signup.html">Sign Up Here</a></p>
+<div class="card">
+<h2 style="color:#002B7F;text-align:center">Login</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p style="text-align:center">No account? <a href="signup.html">Sign Up</a></p>
 </div>
-
 <script>
 function login(){
-  let email = document.getElementById("loginEmail").value;
-  let password = document.getElementById("loginPassword").value;
-  
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
   let savedEmail = localStorage.getItem("userEmail");
   let savedPassword = localStorage.getItem("userPassword");
   
-  // CHECK IF ACCOUNT EXISTS
-  if(!savedEmail){
-    alert("No account found! Please Sign Up first");
-    window.location.href = "signup.html";
-    return;
-  }
-  
-  // CHECK IF EMAIL + PASSWORD MATCH
-  if(email === savedEmail && password === savedPassword){
+  if(email == savedEmail && password == savedPassword){
     alert("Login Successful!");
     window.location.href = "dashboard.html";
   } else {
-    document.getElementById("errorMsg").style.display = "block";
+    alert("Wrong Email or Password!");
   }
 }
 </script>
