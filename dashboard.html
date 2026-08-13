@@ -5,15 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+*{box-sizing:border-box}
 body{margin:0;font-family:Arial;background:#F0F4FF}
-.header{background:#002B7F;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+.header{background:#002B7F;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
 .header h2{margin:0;font-size:18px}
+.header a{color:#fff;text-decoration:none;font-size:14px}
 .container{padding:20px;max-width:1000px;margin:0 auto}
-.card{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px #ccc}
+.card{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
 .balance{font-size:32px;color:#28a745;font-weight:bold}
-.btn{display:inline-block;background:#28a745;color:#fff;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;margin:5px}
+.btn{display:inline-block;background:#28a745;color:#fff;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;margin:5px 5px 0 0}
 .btn-blue{background:#002B7F}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.plan{border:2px solid #E6F0FF;padding:15px;border-radius:8px;text-align:center}
 </style>
 </head>
 <body>
@@ -21,7 +24,7 @@ body{margin:0;font-family:Arial;background:#F0F4FF}
 <!-- HEADER -->
 <div class="header">
   <h2>WeltaceInvestment</h2>
-  <div>Hi, <span id="userName">User</span> | <a href="login.html" onclick="logout()" style="color:#fff">Logout</a></div>
+  <div>Hi, <span id="userName">Loading...</span> | <a href="#" onclick="logout()">Logout</a></div>
 </div>
 
 <!-- MAIN -->
@@ -39,20 +42,12 @@ body{margin:0;font-family:Arial;background:#F0F4FF}
   <div class="grid">
     <div class="card">
       <h3 style="color:#002B7F;margin-top:0">Active Investment</h3>
-      <p style="font-size:24px;font-weight:bold">$0.00</p>
+      <p style="font-size:24px;font-weight:bold">$<span id="activeInv">0.00</span></p>
     </div>
     <div class="card">
       <h3 style="color:#002B7F;margin-top:0">Total Profit</h3>
-      <p style="font-size:24px;font-weight:bold">$0.00</p>
+      <p style="font-size:24px;font-weight:bold">$<span id="profit">0.00</span></p>
     </div>
     <div class="card">
       <h3 style="color:#002B7F;margin-top:0">Referral Bonus</h3>
-      <p style="font-size:24px;font-weight:bold">$0.00</p>
-    </div>
-  </div>
-
-  <!-- INVESTMENT PLANS -->
-  <div class="card">
-    <h3 style="color:#002B7F">Investment Plans</h3>
-    <div class="grid">
-      <div style="border:2px solid #28a745;padding
+      <p style="font-size
