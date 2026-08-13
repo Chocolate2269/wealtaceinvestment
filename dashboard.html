@@ -99,4 +99,10 @@ window.onload = function(){
   let balance = localStorage.getItem("userBalance") || "0.00";
   if(!name){ window.location.href = "login.html"; return; }
   document.getElementById("userName").innerText = name;
-  document.getElementById("userBalance").innerText = balance
+  document.getElementById("userBalance").innerText = balance;
+}
+function logout(){ localStorage.clear(); window.location.href = "login.html"; }
+</script>
+
+</body>
+</html>
