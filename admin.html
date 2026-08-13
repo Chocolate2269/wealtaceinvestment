@@ -1,76 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Admin Panel - WeltaceInvestment USA</title>
-<meta charset="UTF-8">
+<head><title>Admin Panel</title>
 <style>
-body{margin:0;font-family:Arial;background:#111;color:#fff;padding:20px}
-h1{color:#FFD700;text-align:center;margin-bottom:20px}
-.card{background:#222;padding:20px;border-radius:12px;margin:20px 0;border-left:5px solid #B22234}
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #333}
-th{background:#3C3B6E;color:#fff}
-.btn{padding:8px 15px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;margin:2px}
-.btn-approve{background:#28a745;color:#fff}
-.btn-reject{background:#dc3545;color:#fff}
-.btn-add{background:#3C3B6E;color:#fff}
-input{padding:10px;border-radius:6px;border:none;margin:5px;width:200px}
+body{background:#111;color:#fff;font-family:Arial;padding:20px}
+table{width:100%;background:#222;border-collapse:collapse}
+th,td{padding:12px;border:1px solid #444;text-align:left}
+th{background:#3C3B6E}
+input{padding:8px}
+.btn{background:#28a745;color:#fff;border:none;padding:8px 12px;cursor:pointer;border-radius:5px}
 </style>
 </head>
 <body>
-<h1>🇺🇸 WELTACEINVESTMENT ADMIN CONTROL</h1>
-
-<div class="card">
-<h2>💰 Add Balance Manually</h2>
-<input type="number" id="addAmount" placeholder="Enter Amount $">
-<button onclick="addBalance()" class="btn btn-add">Add to User</button>
-<p style="font-size:13px;color:#aaa">This adds to the balance of whoever is logged in on this browser</p>
-</div>
-
-<div class="card">
-<h2>📥 Pending Deposits</h2>
-<table id="depositTable">
-<thead><tr><th>Amount</th><th>TX Hash</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-<tbody></tbody>
+<h1>🇺🇸 Admin Panel - All Users</h1>
+<table id="userTable">
+<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>
 </table>
-</div>
-
-<div class="card">
-<h2>📤 Pending Withdrawals</h2>
-<table id="withdrawTable">
-<thead><tr><th>Method</th><th>Amount</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-<tbody></tbody>
-</table>
-</div>
 
 <script>
-// LOAD ALL DATA
-window.onload = function(){
-  loadDeposits();
-  loadWithdraws();
-}
+function loadUsers(){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let table = document.getElementById("userTable");
+  table.innerHTML = "<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>";
 
-// ADD BALANCE
-function addBalance(){
-  let amount = parseFloat(document.getElementById("addAmount").value);
-  if(!amount){ alert("Enter amount"); return; }
-  let current = parseFloat(localStorage.getItem("userBalance") || "0");
-  let newBalance = current + amount;
-  localStorage.setItem("userBalance", newBalance.toFixed(2));
-  alert("$" + amount + " Added! New Balance: $" + newBalance.toFixed(2));
-}
-
-// DEPOSITS
-function loadDeposits(){
-  let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-  let tbody = document.getElementById("depositTable").getElementsByTagName('tbody')[0];
-  tbody.innerHTML = "";
-  if(deposits.length == 0){ tbody.innerHTML = "<tr><td colspan=5>No pending deposits</td></tr>"; return; }
-  
-  deposits.forEach((d, i) => {
-    let row = tbody.insertRow();
-    row.innerHTML = `<td>$${d.amount}</td><td>${d.txid}</td><td>${d.date}</td><td>${d.status}</td>
-    <td>
-      ${d.status=="Pending"?`<button class="btn btn-approve" onclick="approveDeposit(${i})">Approve</button> <button class="btn btn-reject" onclick="rejectDeposit(${i})">Reject</button>`:d.status}
-    </td>`;
+  users.forEach((u, index) => {
+    table.innerHTML += `
+    <tr>
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+      <td>$${parseFloat(u.balance).toFixed(2)}</td>
+      <td><input type="number" id="add${index}" placeholder="100">
+      <button class="btn" onclick="addBalance(${index})">Add</button></td>
+    </tr>`;
   });
+}
+
+function addBalance(index){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let amount = parseFloat(document.getElementById("add"+index).value);
+  if(amount > 0){
+    users[index].balance += amount;
+    localStorage.setItem("users", JSON.stringify(users));
+    loadUsers();
+    alert("$"+amount+" added to "+users[index].name);
+  }
+}
+loadUsers();
+</script>
+</body>
+</html>
