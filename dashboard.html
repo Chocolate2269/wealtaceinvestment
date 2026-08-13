@@ -6,52 +6,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{margin:0;font-family:Arial;background:#F0F4FF}
-.top{background:linear-gradient(90deg,#002B7F 50%,#CE1126 50%);color:#fff;padding:15px;font-weight:bold;text-align:center;display:flex;justify-content:space-between;align-items:center}
-.top a{color:#fff;text-decoration:none;background:#CE1126;padding:8px 15px;border-radius:5px;font-size:14px}
-.container{padding:30px;max-width:900px;margin:auto}
-.card{background:#fff;padding:25px;border-radius:10px;margin:15px 0;box-shadow:0 3px 10px #ccc}
-.balance{background:linear-gradient(135deg,#002B7F,#CE1126);color:#fff}
-h1{color:#002B7F;margin-bottom:5px}
-h2{margin:0 0 10px}
-.btn{background:#28a745;color:#fff;padding:12px 25px;border-radius:8px;text-decoration:none;display:inline-block;margin:5px;font-weight:bold}
-.btn-red{background:#CE1126}
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:15px}
-.plan-card{border:2px solid #002B7F;padding:15px;border-radius:8px;text-align:center}
-.plan-card h3{color:#002B7F;margin:0 0 10px}
+.header{background:#002B7F;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+.header h2{margin:0;font-size:18px}
+.container{padding:20px;max-width:1000px;margin:0 auto}
+.card{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px #ccc}
+.balance{font-size:32px;color:#28a745;font-weight:bold}
+.btn{display:inline-block;background:#28a745;color:#fff;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;margin:5px}
+.btn-blue{background:#002B7F}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
 </style>
 </head>
 <body>
-<div class="top">
-  <div>🇺🇸 WELTACE DASHBOARD 🇨🇷</div>
-  <a href="#" onclick="logout()">Logout</a>
+
+<!-- HEADER -->
+<div class="header">
+  <h2>WeltaceInvestment</h2>
+  <div>Hi, <span id="userName">User</span> | <a href="login.html" onclick="logout()" style="color:#fff">Logout</a></div>
 </div>
 
+<!-- MAIN -->
 <div class="container">
-<h1>Welcome Back! <span id="userName">User</span> 👋</h1>
-<div style="color:#555;margin-bottom:20px">Email: <span id="userEmail"></span></div>
 
-<div class="card balance">
-<h2>Account Balance</h2>
-<h1>$<span id="userBalance">0.00</span></h1>
-<a href="#" class="btn">Deposit</a>
-<a href="#" class="btn btn-red">Withdraw</a>
-</div>
-
-<div class="card">
-<h2>Your Active Investments</h2>
-<p id="activePlans">No active plans yet.</p>
-</div>
-
-<div class="card">
-<h2>🇺🇸 Investment Plans</h2>
-<div class="plans-grid">
-  <div class="plan-card">
-    <h3>STARTER</h3>
-    <p><b>$200</b></p>
-    <p>10% ROI - 7 Days</p>
-    <button class="btn" onclick="invest('Starter',200)">Invest</button>
+  <!-- BALANCE CARD -->
+  <div class="card">
+    <p style="margin:0;color:#555">Account Balance</p>
+    <div class="balance">$<span id="userBalance">0.00</span></div>
+    <a href="deposit.html" class="btn">Deposit</a>
+    <a href="withdraw.html" class="btn btn-blue">Withdraw</a>
   </div>
-  <div class="plan-card">
-    <h3>PRO 🔥</h3>
-    <p><b>$350</b></p>
-    <p>15% ROI - 14 Days</p>
+
+  <!-- STATS -->
+  <div class="grid">
+    <div class="card">
+      <h3 style="color:#002B7F;margin-top:0">Active Investment</h3>
+      <p style="font-size:24px;font-weight:bold">$0.00</p>
+    </div>
+    <div class="card">
+      <h3 style="color:#002B7F;margin-top:0">Total Profit</h3>
+      <p style="font-size:24px;font-weight:bold">$0.00</p>
+    </div>
+    <div class="card">
+      <h3 style="color:#002B7F;margin-top:0">Referral Bonus</h3>
+      <p style="font-size:24px;font-weight:bold">$0.00</p>
+    </div>
+  </div>
+
+  <!-- INVESTMENT PLANS -->
+  <div class="card">
+    <h3 style="color:#002B7F">Investment Plans</h3>
+    <div class="grid">
+      <div style="border:2px solid #28a745;padding
