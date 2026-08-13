@@ -1,138 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <title>Dashboard - WeltaceInvestment USA</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial;background:#F0F4FF;color:#333}
-
-/* USA FLAG HEADER */
-.header{
-  background: linear-gradient(90deg, #B22234 0%, #B22234 60%, #FFFFFF 60%, #FFFFFF 100%);
-  color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;border-bottom:4px solid #3C3B6E;position:relative;
-}
-.header::before{
-  content:""; position:absolute; left:0; top:0; width:40%; height:100%;
-  background:#3C3B6E; z-index:1;
-}
-.header h2{font-size:20px;position:relative;z-index:2}
-.header .user{font-size:14px;position:relative;z-index:2}
-.header .user a{color:#FFD700;text-decoration:none;margin-left:10px;font-weight:bold}
-
-.container{padding:20px;max-width:1100px;margin:0 auto}
-.welcome h1{color:#3C3B6E;font-size:24px;margin-bottom:20px}
-
-/* BALANCE CARD - USA COLORS */
-.balance-card{
-  background: linear-gradient(135deg,#3C3B6E,#B22234);
-  color:#fff;padding:25px;border-radius:15px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.2)
-}
-.balance-card p{font-size:14px;opacity:0.9}
-.balance-card .amount{font-size:36px;font-weight:bold;margin:10px 0}
-
-/* BUTTONS - USA THEME */
-.btns{margin-top:15px}
-.btn{padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold;margin-right:10px;display:inline-block;border:none;cursor:pointer}
-.btn-deposit{background:#3C3B6E;color:#fff} /* Blue */
-.btn-withdraw{background:#B22234;color:#fff} /* Red */
-.btn:hover{opacity:0.9}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin:20px 0}
-.stat-card{background:#fff;padding:20px;border-radius:12px;border-left:5px solid #B22234;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-.stat-card h4{color:#555;font-size:14px;margin-bottom:8px}
-.stat-card .num{font-size:22px;font-weight:bold;color:#3C3B6E}
-
-/* PLANS */
-.section-title{color:#3C3B6E;margin:20px 0 15px;font-size:18px}
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
-.plan-card{background:#fff;padding:20px;border-radius:12px;text-align:center;border:2px solid #3C3B6E;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-.plan-card h3{color:#B22234;margin-bottom:10px}
-.plan-card p{margin:10px 0;color:#555;line-height:1.6}
-.plan-card .btn{width:100%;background:#3C3B6E;color:#fff}
+body{margin:0;font-family:Arial;background:#F0F4FF}
+.header{background:#3C3B6E;color:#fff;padding:15px;display:flex;justify-content:space-between}
+.container{padding:20px;max-width:1000px;margin:0 auto}
+.balance{background:linear-gradient(135deg,#3C3B6E,#B22234);color:#fff;padding:25px;border-radius:15px;text-align:center}
+.btn{padding:12px 20px;border-radius:8px;text-decoration:none;margin:10px;display:inline-block;font-weight:bold}
+.btn-deposit{background:#3C3B6E;color:#fff}
+.btn-withdraw{background:#B22234;color:#fff}
 </style>
 </head>
 <body>
-
-<!-- HEADER WITH USA FLAG COLORS -->
 <div class="header">
   <h2>🇺🇸 WeltaceInvestment USA</h2>
-  <div class="user">
-    Hi, <span id="userName">User</span>
-    <a href="#" onclick="logout()">Logout</a>
-  </div>
+  <div>Hi, <span id="userName">User</span> | <a href="#" onclick="logout()" style="color:#FFD700">Logout</a></div>
 </div>
 
 <div class="container">
-  <div class="welcome"><h1>Dashboard</h1></div>
-
-  <!-- BALANCE SECTION -->
-  <div class="balance-card">
+  <h1>Dashboard</h1>
+  <div class="balance">
     <p>Account Balance</p>
-    <div class="amount">$<span id="userBalance">0.00</span></div>
-    <div class="btns">
-      <a href="deposit.html" class="btn btn-deposit">+ Deposit</a>
-      <a href="withdraw.html" class="btn btn-withdraw">Withdraw</a>
-    </div>
-  </div>
-
-  <!-- STATS SECTION -->
-  <div class="stats">
-    <div class="stat-card"><h4>Active Investment</h4><div class="num">$<span id="activeInvest">0.00</span></div></div>
-    <div class="stat-card"><h4>Total Profit</h4><div class="num">$<span id="totalProfit">0.00</span></div></div>
-    <div class="stat-card"><h4>Referral Bonus</h4><div class="num">$<span id="refBonus">0.00</span></div></div>
-  </div>
-
-  <!-- PLANS SECTION -->
-  <h3 class="section-title">Investment Plans</h3>
-  <div class="plans">
-    <div class="plan-card">
-      <h3>Starter Plan</h3>
-      <p><b>Min:</b> $50<br><b>Profit:</b> 10% Daily<br><b>Duration:</b> 10 Days</p>
-      <a href="deposit.html" class="btn">Invest Now</a>
-    </div>
-    <div class="plan-card">
-      <h3>Pro Plan</h3>
-      <p><b>Min:</b> $500<br><b>Profit:</b> 20% Daily<br><b>Duration:</b> 20 Days</p>
-      <a href="deposit.html" class="btn">Invest Now</a>
-    </div>
-    <div class="plan-card">
-      <h3>VIP Plan</h3>
-      <p><b>Min:</b> $5000<br><b>Profit:</b> 35% Daily<br><b>Duration:</b> 30 Days</p>
-      <a href="deposit.html" class="btn">Invest Now</a>
-    </div>
+    <h1>$<span id="userBalance">0.00</span></h1>
+    <a href="deposit.html" class="btn btn-deposit">+ Deposit</a>
+    <a href="withdraw.html" class="btn btn-withdraw">Withdraw</a>
   </div>
 </div>
 
 <script>
-window.onload = function(){
-  // CHECK LOGIN
-  let name = localStorage.getItem("userName");
-  let balance = localStorage.getItem("userBalance") || "0.00";
-  let active = localStorage.getItem("activeInvest") || "0.00";
-  let profit = localStorage.getItem("totalProfit") || "0.00";
-  let ref = localStorage.getItem("refBonus") || "0.00";
-  
-  if(!name){ 
-    window.location.href = "login.html"; 
-    return; 
-  }
-  
-  // SHOW DATA
-  document.getElementById("userName").innerText = name;
-  document.getElementById("userBalance").innerText = parseFloat(balance).toFixed(2);
-  document.getElementById("activeInvest").innerText = parseFloat(active).toFixed(2);
-  document.getElementById("totalProfit").innerText = parseFloat(profit).toFixed(2);
-  document.getElementById("refBonus").innerText = parseFloat(ref).toFixed(2);
-}
+let name = localStorage.getItem("userName");
+let balance = localStorage.getItem("userBalance") || "0.00";
 
-function logout(){ 
-  localStorage.clear(); 
-  window.location.href = "login.html"; 
-}
+if(!name){ window.location.href = "login.html"; }
+
+document.getElementById("userName").innerText = name;
+document.getElementById("userBalance").innerText = parseFloat(balance).toFixed(2);
+
+function logout(){ localStorage.clear(); window.location.href = "login.html"; }
 </script>
-
 </body>
 </html>
