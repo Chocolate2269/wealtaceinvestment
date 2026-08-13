@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Deposit - WeltaceInvestment USA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
+.card{background:#fff;padding:30px;border-radius:12px;max-width:500px;margin:50px auto;box-shadow:0 4px 15px #ccc;border-top:5px solid #3C3B6E}
+h2{color:#3C3B6E;text-align:center}
+.info{background:#E6F0FF;padding:15px;border-radius:8px;margin:15px 0;word-break:break-all;border-left:4px solid #B22234}
+input{width:100%;padding:12px;margin:10px 0;border:2px solid #3C3B6E;border-radius:8px;box-sizing:border-box}
+.btn{background:#3C3B6E;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer;font-size:16px}
+.btn:hover{opacity:0.9}
+.copy{font-size:12px;color:#B22234;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>🇺🇸 Deposit Funds</h2>
+
+<p style="text-align:center;color:#555">Send ETH to the wallet below. Min: $50</p>
+
+<div class="info">
+<b>ETH Wallet Address:</b><br>
+<code id="ethWallet">0xYOUR_ETH_WALLET_ADDRESS_HERE</code><br>
+<span class="copy" onclick="copyWallet()">Click to Copy</span>
+</div>
+
+<input type="number" id="amount" placeholder="Enter Amount $">
+<input type="text" id="txid" placeholder="ETH Transaction Hash / Proof">
+<button onclick="submitDeposit()" class="btn">Submit Deposit</button>
+
+<p style="font-size:13px;color:#B22234;text-align:center;margin-top:15px">Admin will approve in 10 minutes after confirmation</p>
+<a href="dashboard.html" style="display:block;text-align:center;margin-top:10px;color:#3C3B6E">← Back to Dashboard</a>
+</div>
+
+<script>
+function copyWallet(){
+  let wallet = document.getElementById("ethWallet").innerText;
+  navigator.clipboard.writeText(wallet);
+  alert("ETH Wallet Copied!");
+}
+
+function submitDeposit(){
+  let amount = document.getElementById("amount").value;
+  let txid = document.getElementById("txid").value;
+  if(!amount || !txid){ alert("Fill amount and TX Hash"); return; }
+  
+  let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+  deposits.push({amount:amount, txid:txid, status:"Pending", date:new Date().toLocaleString()});
+  localStorage.setItem("deposits", JSON.stringify(deposits));
+  
+  alert("Deposit Submitted! Waiting for approval.");
+  window.location.href = "dashboard.html";
+}
+</script>
+</body>
+</html>
