@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head><title>Login</title>
-<style>body{font-family:Arial;background:#F0F4FF;padding:20px}.card{max-width:400px;margin:50px auto;background:#fff;padding:30px;border-radius:12px}input{width:100%;padding:12px;margin:10px 0;border:2px solid #002B7F;border-radius:8px}button{background:#002B7F;color:#fff;padding:15px;width:100%;border:none;border-radius:8px;font-weight:bold;cursor:pointer}</style>
+<head>
+<title>Login - WeltaceInvestment USA</title>
+<meta charset="UTF-8">
+<style>
+body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
+.card{background:#fff;padding:30px;border-radius:12px;max-width:400px;margin:50px auto;border-top:5px solid #B22234}
+h2{color:#B22234;text-align:center}
+input{width:100%;padding:12px;margin:10px 0;border:2px solid #B22234;border-radius:8px}
+.btn{background:#B22234;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="card">
-<h2 style="color:#002B7F;text-align:center">Login</h2>
+<h2>Login</h2>
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
-<button onclick="login()">Login</button>
+<button onclick="login()" class="btn">Login</button>
 <p style="text-align:center">No account? <a href="signup.html">Sign Up</a></p>
 </div>
+
 <script>
 function login(){
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-  let savedEmail = localStorage.getItem("userEmail");
-  let savedPassword = localStorage.getItem("userPassword");
   
-  if(email == savedEmail && password == savedPassword){
-    alert("Login Successful!");
-    window.location.href = "dashboard.html";
+  let savedEmail = localStorage.getItem("userEmail");
+  let savedPass = localStorage.getItem("userPassword");
+  
+  if(email == savedEmail && password == savedPass){
+    alert("Login Successful");
+    window.location.href = "dashboard.html"; // Name is already saved
   } else {
-    alert("Wrong Email or Password!");
+    alert("Wrong Email or Password");
   }
 }
 </script>
