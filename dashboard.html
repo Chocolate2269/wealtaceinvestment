@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dashboard - WeltaceInvestment USA</title>
+<title>WeltaceInvestment USA - Dashboard</title>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{margin:0;font-family:Arial;background:#F0F4FF}
-.header{background:linear-gradient(90deg,#3C3B6E,#B22234);color:#fff;padding:15px;display:flex;justify-content:space-between}
-.container{padding:20px;max-width:1000px;margin:0 auto}
-.balance{background:linear-gradient(135deg,#3C3B6E,#B22234);color:#fff;padding:25px;border-radius:15px;text-align:center}
-.btn{padding:12px 20px;border-radius:8px;text-decoration:none;margin:10px;display:inline-block;font-weight:bold;color:#fff}
-.btn-deposit{background:#3C3B6E}
-.btn-withdraw{background:#B22234}
-</style>
-</head>
-<body>
-<div class="header">
-  <h2>🇺🇸 WeltaceInvestment USA</h2>
-  <div>Hi, <span id="userName">User</span> | <a href="#" onclick="logout()" style="color:#FFD700">Logout</a></div>
-</div>
-<div class="container">
-  <h1>Dashboard</h1>
-  <div class="balance">
-    <p>Account Balance</p>
-    <h1>$<span id="userBalance">0.00</span></h1>
-    <a href="deposit.html" class="btn btn-deposit">+ Deposit</a>
-    <a href="withdraw.html" class="btn btn-withdraw">Withdraw</a>
-  </div>
-</div>
-<script>
-let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-if(!currentUser){ window.location.href = "login.html"; }
-document.getElementById("userName").innerText = currentUser.name;
-document.getElementById("userBalance").innerText = parseFloat(currentUser.balance).toFixed(2);
-function logout(){ localStorage.removeItem("currentUser"); window.location.href = "login.html"; }
-</script>
-</body>
-</html>
+* {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', 'Segoe UI', Arial, sans-serif;}
+body {background: #F8FAFC; color:#1e293b;}
+
+/* HUNTINGTON + NAVY HEADER */
+.header {
+  background: linear-gradient(90deg, #006341 0%, #0B3D91 100%); 
+  color:#fff; padding:18px 25px; display:flex; justify-content:space-between; align-items:center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.header .logo {font-size:20px; font-weight:800;}
+.header .user {font-size:14px;}
+.header .user a {color:#FFD700; text-decoration:none; margin-left:15px; font-weight:600;}
+
+.container {max-width:1200px; margin:30px auto; padding:0 20px;}
+
+.welcome h1 {font-size:28px; color:#0B3D91; margin-bottom:5px;}
+.welcome p {color:#64748b; margin-bottom:25px;}
+
+/* BALANCE CARD */
+.balance-card {
+  background: linear-gradient(135deg, #006341 0%, #0B3D91 100%);
+  color:#fff; padding:30px; border-radius:20px; margin-bottom:30px;
+}
+.balance-card .label {font-size:14px; opacity:0.9
