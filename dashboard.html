@@ -5,46 +5,65 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta charset="UTF-8">
 <style>
-:root{
-  --usa-blue:#002B7F; 
-  --usa-red:#CE1126; 
-  --cr-green:#28a745; 
-  --usa-white:#FFFFFF;
-}
+:root{--usa-blue:#002B7F; --usa-red:#CE1126; --cr-green:#28a745; --cr-gold:#FFD700;}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
-body{background:#F0F4FF;color:#1A1A1A}
+body{background:#F0F4FF}
 
-/* CORNER ACTION BAR - FIXED TOP RIGHT */
-.action-bar{
-  position:fixed;top:20px;right:20px;z-index:999;
-  display:flex;gap:10px
-}
-.action-bar a{
-  padding:12px 20px;border-radius:10px;text-decoration:none;
-  font-weight:bold;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,0.2)
-}
-.btn-deposit{background:var(--usa-blue);color:#fff}
-.btn-withdraw{background:var(--usa-red);color:#fff}
-.action-bar a:hover{transform:translateY(-2px)}
+.topbar{background:linear-gradient(90deg,var(--usa-blue) 50%,var(--usa-red) 50%);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold}
+.logout{background:#fff;color:var(--usa-red);padding:8px 15px;border-radius:8px;text-decoration:none;font-weight:bold}
 
-/* TOP NAV - USA STRIPES */
-.topbar{background:linear-gradient(90deg,var(--usa-blue) 50%,var(--usa-red) 50%);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;margin-top:60px}
-.logo{font-size:22px}
-.logo span{color:#fff}
+.welcome{background:#fff;padding:25px;margin:20px;border-radius:12px;box-shadow:0 3px 15px rgba(0,0,0,0.1);border-left:5px solid var(--cr-green)}
+.welcome h2{color:var(--usa-blue)}
 
-/* WELCOME */
-.welcome{background:#fff;padding:25px;margin:20px;border-radius:12px;box-shadow:0 3px 15px rgba(0,43,127,0.1);border-left:5px solid var(--cr-green)}
-.welcome h2{color:var(--usa-blue);margin-bottom:10px;font-size:24px}
+.balance{background:linear-gradient(135deg,var(--usa-blue),var(--usa-red));color:#fff;padding:30px;margin:20px;border-radius:15px;text-align:center}
+.balance .amount{font-size:40px;font-weight:bold;margin:15px 0}
+.btn{background:var(--cr-green);color:#fff;padding:12px 25px;border-radius:10px;text-decoration:none;font-weight:bold;margin:5px;display:inline-block}
+.btn.withdraw{background:var(--usa-red)}
 
-/* BALANCE CARD - BIG BOLD USA */
-.balance{
-  background: linear-gradient(rgba(0,43,127,0.92), rgba(206,17,38,0.92)), url('https://flagcdn.com/w1600/us.jpg') center/cover no-repeat;
-  color:#fff;padding:50px 30px;margin:20px;border-radius:18px;text-align:center;position:relative;overflow:hidden
-}
-.balance::before{content:"🇺🇸";position:absolute;font-size:120px;opacity:0.12;top:-20px;right:-20px}
-.balance h3{font-size:18px;opacity:0.9;margin-bottom:15px;letter-spacing:2px}
-.balance .amount{
-  font-size:64px; /* BIG BOLD */
-  font-weight:900; /* EXTRA BOLD */
-  margin-bottom:10px;
-  text-shadow:0 3px 10px rgba(0,0,0,0
+.plans{padding:20px}
+.plans h3{text-align:center;color:var(--usa-blue);font-size:22px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;max-width:1000px;margin:auto}
+.card{background:#fff;border-radius:12px;padding:20px;text-align:center;border-top:4px solid var(--usa-red)}
+.card.promo{border-top:4px solid var(--cr-gold)}
+.flag{font-size:30px}
+.plan-name{color:var(--usa-blue);font-weight:bold}
+.invest{color:var(--usa-red);font-size:24px;font-weight:bold}
+.return{color:var(--cr-green);font-weight:bold}
+.btn-plan{background:var(--usa-blue);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">WEALTACE<span>INVESTMENT</span> 🇺🇸</div>
+  <a href="index.html" class="logout">Logout</a>
+</div>
+
+<div class="welcome">
+  <h2>Welcome Back! 👋</h2>
+  <p>Email: <b id="userEmail">Loading...</b></p>
+</div>
+
+<div class="balance">
+  <h3>Account Balance</h3>
+  <div class="amount">$0.00</div>
+  <a href="Eth.html" class="btn">Deposit</a>
+  <a href="withdrawal.html" class="btn withdraw">Withdraw</a>
+</div>
+
+<div class="plans">
+  <h3>Upgrade Your Plan</h3>
+  <div class="grid">
+    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">STARTER</div><div class="invest">$200</div><div class="return">Get ₦700,000</div><a href="Eth.html" class="btn-plan">Invest</a></div>
+    <div class="card promo"><div class="flag">🇺🇸</div><div class="plan-name">PROMO</div><div class="invest">$350</div><div class="return">Get ₦1,500,000</div><a href="Eth.html" class="btn-plan">Invest</a></div>
+    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">PREMIUM</div><div class="invest">$500</div><div class="return">Get ₦3,000,000</div><a href="Eth.html" class="btn-plan">Invest</a></div>
+    <div class="card"><div class="flag">🇺🇸</div><div class="plan-name">VIP</div><div class="invest">$1000</div><div class="return">Get ₦5,000,000</div><a href="Eth.html" class="btn-plan">Invest</a></div>
+  </div>
+</div>
+
+<script>
+document.getElementById("userEmail").innerText = localStorage.getItem("wealtace_email") || "Guest"
+</script>
+</body>
+</html>
