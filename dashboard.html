@@ -5,12 +5,12 @@
 <meta charset="UTF-8">
 <style>
 body{margin:0;font-family:Arial;background:#F0F4FF}
-.header{background:#3C3B6E;color:#fff;padding:15px;display:flex;justify-content:space-between}
+.header{background:linear-gradient(90deg,#3C3B6E,#B22234);color:#fff;padding:15px;display:flex;justify-content:space-between}
 .container{padding:20px;max-width:1000px;margin:0 auto}
 .balance{background:linear-gradient(135deg,#3C3B6E,#B22234);color:#fff;padding:25px;border-radius:15px;text-align:center}
-.btn{padding:12px 20px;border-radius:8px;text-decoration:none;margin:10px;display:inline-block;font-weight:bold}
-.btn-deposit{background:#3C3B6E;color:#fff}
-.btn-withdraw{background:#B22234;color:#fff}
+.btn{padding:12px 20px;border-radius:8px;text-decoration:none;margin:10px;display:inline-block;font-weight:bold;color:#fff}
+.btn-deposit{background:#3C3B6E}
+.btn-withdraw{background:#B22234}
 </style>
 </head>
 <body>
@@ -18,7 +18,6 @@ body{margin:0;font-family:Arial;background:#F0F4FF}
   <h2>🇺🇸 WeltaceInvestment USA</h2>
   <div>Hi, <span id="userName">User</span> | <a href="#" onclick="logout()" style="color:#FFD700">Logout</a></div>
 </div>
-
 <div class="container">
   <h1>Dashboard</h1>
   <div class="balance">
@@ -28,17 +27,12 @@ body{margin:0;font-family:Arial;background:#F0F4FF}
     <a href="withdraw.html" class="btn btn-withdraw">Withdraw</a>
   </div>
 </div>
-
 <script>
-let name = localStorage.getItem("userName");
-let balance = localStorage.getItem("userBalance") || "0.00";
-
-if(!name){ window.location.href = "login.html"; }
-
-document.getElementById("userName").innerText = name;
-document.getElementById("userBalance").innerText = parseFloat(balance).toFixed(2);
-
-function logout(){ localStorage.clear(); window.location.href = "login.html"; }
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if(!currentUser){ window.location.href = "login.html"; }
+document.getElementById("userName").innerText = currentUser.name;
+document.getElementById("userBalance").innerText = parseFloat(currentUser.balance).toFixed(2);
+function logout(){ localStorage.removeItem("currentUser"); window.location.href = "login.html"; }
 </script>
 </body>
 </html>
