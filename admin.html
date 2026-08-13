@@ -11,39 +11,49 @@ input{padding:8px}
 </style>
 </head>
 <body>
-<h1>🇺🇸 Admin Panel - All Users</h1>
+<h1>🇺🇸 Admin Panel - Credit Users</h1>
 <table id="userTable">
-<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>
+<tr><th>Name</th><th>Email</th><th>Balance</th><th>Credit User</th></tr>
 </table>
 
 <script>
 function loadUsers(){
   let users = JSON.parse(localStorage.getItem("users")) || [];
   let table = document.getElementById("userTable");
-  table.innerHTML = "<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>";
+  table.innerHTML = "<tr><th>Name</th><th>Email</th><th>Balance</th><th>Credit User</th></tr>";
 
-  users.forEach((u, index) => {
+  users.forEach((u) => {
     table.innerHTML += `
     <tr>
       <td>${u.name}</td>
       <td>${u.email}</td>
       <td>$${parseFloat(u.balance).toFixed(2)}</td>
-      <td><input type="number" id="add${index}" placeholder="100">
-      <button class="btn" onclick="addBalance(${index})">Add</button></td>
+      <td>
+        <input type="number" id="add_${u.email}" placeholder="100">
+        <button class="btn" onclick="addBalance('${u.email}')">Add</button>
+      </td>
     </tr>`;
   });
 }
 
-function addBalance(index){
+function addBalance(email){
   let users = JSON.parse(localStorage.getItem("users")) || [];
-  let amount = parseFloat(document.getElementById("add"+index).value);
+  let amount = parseFloat(document.getElementById("add_"+email).value);
+
   if(amount > 0){
-    users[index].balance += amount;
-    localStorage.setItem("users", JSON.stringify(users));
-    loadUsers();
-    alert("$"+amount+" added to "+users[index].name);
+    // find user by email
+    let userIndex = users.findIndex(u => u.email === email);
+    if(userIndex!== -1){
+      users[userIndex].balance += amount;
+      localStorage.setItem("users", JSON.stringify(users));
+      loadUsers();
+      alert("$"+amount+" added to "+users[userIndex].name);
+    }
+  } else {
+    alert("Enter amount greater than 0");
   }
 }
+
 loadUsers();
 </script>
 </body>
