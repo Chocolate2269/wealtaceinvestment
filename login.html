@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Login - WeltaceInvestment USA</title>
+<head><title>Login - WeltaceInvestment USA</title>
 <meta charset="UTF-8">
 <style>
 body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
@@ -13,24 +12,23 @@ input{width:100%;padding:12px;margin:10px 0;border:2px solid #B22234;border-radi
 </head>
 <body>
 <div class="card">
-<h2>Login</h2>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-<button onclick="login()" class="btn">Login</button>
-<p style="text-align:center">No account? <a href="signup.html">Sign Up</a></p>
+  <h2>🇺🇸 Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()" class="btn">Login</button>
+  <p style="text-align:center">No account? <a href="signup.html">Sign Up</a></p>
 </div>
-
 <script>
 function login(){
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-  
-  let savedEmail = localStorage.getItem("userEmail");
-  let savedPass = localStorage.getItem("userPassword");
-  
-  if(email == savedEmail && password == savedPass){
-    alert("Login Successful");
-    window.location.href = "dashboard.html"; // Name is already saved
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  let user = users.find(u => u.email === email && u.password === password);
+
+  if(user){
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    window.location.href = "dashboard.html";
   } else {
     alert("Wrong Email or Password");
   }
