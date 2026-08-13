@@ -4,31 +4,31 @@
 <title>Admin Panel - WeltaceInvestment USA</title>
 <meta charset="UTF-8">
 <style>
-body{margin:0;font-family:Arial;background:#1a1a1a;color:#fff;padding:20px}
-h1{color:#FFD700;text-align:center}
-.card{background:#2a2a2a;padding:20px;border-radius:12px;margin:20px 0;border-left:5px solid #B22234}
+body{margin:0;font-family:Arial;background:#111;color:#fff;padding:20px}
+h1{color:#FFD700;text-align:center;margin-bottom:20px}
+.card{background:#222;padding:20px;border-radius:12px;margin:20px 0;border-left:5px solid #B22234}
 table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #444}
+th,td{padding:12px;text-align:left;border-bottom:1px solid #333}
 th{background:#3C3B6E;color:#fff}
 .btn{padding:8px 15px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;margin:2px}
 .btn-approve{background:#28a745;color:#fff}
 .btn-reject{background:#dc3545;color:#fff}
 .btn-add{background:#3C3B6E;color:#fff}
-input{padding:10px;border-radius:6px;border:none;margin:5px}
+input{padding:10px;border-radius:6px;border:none;margin:5px;width:200px}
 </style>
 </head>
 <body>
-<h1>🇺🇸 ADMIN CONTROL PANEL</h1>
+<h1>🇺🇸 WELTACEINVESTMENT ADMIN CONTROL</h1>
 
 <div class="card">
-<h2>Add Balance to User</h2>
-<input type="number" id="addAmount" placeholder="Amount $">
-<button onclick="addBalance()" class="btn btn-add">Add to Balance</button>
-<p style="font-size:13px;color:#aaa">This adds to the current logged in user</p>
+<h2>💰 Add Balance Manually</h2>
+<input type="number" id="addAmount" placeholder="Enter Amount $">
+<button onclick="addBalance()" class="btn btn-add">Add to User</button>
+<p style="font-size:13px;color:#aaa">This adds to the balance of whoever is logged in on this browser</p>
 </div>
 
 <div class="card">
-<h2>Pending Deposits</h2>
+<h2>📥 Pending Deposits</h2>
 <table id="depositTable">
 <thead><tr><th>Amount</th><th>TX Hash</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
 <tbody></tbody>
@@ -36,20 +36,21 @@ input{padding:10px;border-radius:6px;border:none;margin:5px}
 </div>
 
 <div class="card">
-<h2>Pending Withdrawals</h2>
+<h2>📤 Pending Withdrawals</h2>
 <table id="withdrawTable">
-<thead><tr><th>Type</th><th>Amount</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+<thead><tr><th>Method</th><th>Amount</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
 <tbody></tbody>
 </table>
 </div>
 
 <script>
-// LOAD DATA ON START
+// LOAD ALL DATA
 window.onload = function(){
   loadDeposits();
   loadWithdraws();
 }
 
+// ADD BALANCE
 function addBalance(){
   let amount = parseFloat(document.getElementById("addAmount").value);
   if(!amount){ alert("Enter amount"); return; }
@@ -59,10 +60,13 @@ function addBalance(){
   alert("$" + amount + " Added! New Balance: $" + newBalance.toFixed(2));
 }
 
+// DEPOSITS
 function loadDeposits(){
   let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
   let tbody = document.getElementById("depositTable").getElementsByTagName('tbody')[0];
   tbody.innerHTML = "";
+  if(deposits.length == 0){ tbody.innerHTML = "<tr><td colspan=5>No pending deposits</td></tr>"; return; }
+  
   deposits.forEach((d, i) => {
     let row = tbody.insertRow();
     row.innerHTML = `<td>$${d.amount}</td><td>${d.txid}</td><td>${d.date}</td><td>${d.status}</td>
@@ -70,64 +74,3 @@ function loadDeposits(){
       ${d.status=="Pending"?`<button class="btn btn-approve" onclick="approveDeposit(${i})">Approve</button> <button class="btn btn-reject" onclick="rejectDeposit(${i})">Reject</button>`:d.status}
     </td>`;
   });
-}
-
-function approveDeposit(i){
-  let deposits = JSON.parse(localStorage.getItem("deposits"));
-  let amount = parseFloat(deposits[i].amount);
-  deposits[i].status = "Approved";
-  localStorage.setItem("deposits", JSON.stringify(deposits));
-
-  // ADD TO USER BALANCE
-  let current = parseFloat(localStorage.getItem("userBalance") || "0");
-  localStorage.setItem("userBalance", (current + amount).toFixed(2));
-
-  alert("Deposit Approved! $" + amount + " added to balance");
-  loadDeposits();
-}
-
-function rejectDeposit(i){
-  let deposits = JSON.parse(localStorage.getItem("deposits"));
-  deposits[i].status = "Rejected";
-  localStorage.setItem("deposits", JSON.stringify(deposits));
-  alert("Deposit Rejected");
-  loadDeposits();
-}
-
-function loadWithdraws(){
-  let withdraws = JSON.parse(localStorage.getItem("withdraws")) || [];
-  let tbody = document.getElementById("withdrawTable").getElementsByTagName('tbody')[0];
-  tbody.innerHTML = "";
-  withdraws.forEach((w, i) => {
-    let row = tbody.insertRow();
-    row.innerHTML = `<td>${w.type}</td><td>$${w.amount}</td><td>${w.details}</td><td>${w.date}</td><td>${w.status}</td>
-    <td>
-      ${w.status=="Pending"?`<button class="btn btn-approve" onclick="approveWithdraw(${i})">Paid</button> <button class="btn btn-reject" onclick="rejectWithdraw(${i})">Reject</button>`:w.status}
-    </td>`;
-  });
-}
-
-function approveWithdraw(i){
-  let withdraws = JSON.parse(localStorage.getItem("withdraws"));
-  let amount = parseFloat(withdraws[i].amount);
-  withdraws[i].status = "Paid";
-  localStorage.setItem("withdraws", JSON.stringify(withdraws));
-
-  // DEDUCT FROM USER BALANCE
-  let current = parseFloat(localStorage.getItem("userBalance") || "0");
-  localStorage.setItem("userBalance", (current - amount).toFixed(2));
-
-  alert("Withdraw Marked as Paid! $" + amount + " deducted");
-  loadWithdraws();
-}
-
-function rejectWithdraw(i){
-  let withdraws = JSON.parse(localStorage.getItem("withdraws"));
-  withdraws[i].status = "Rejected";
-  localStorage.setItem("withdraws", JSON.stringify(withdraws));
-  alert("Withdraw Rejected");
-  loadWithdraws();
-}
-</script>
-</body>
-</html>
