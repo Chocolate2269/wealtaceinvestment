@@ -1,59 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Deposit - WeltaceInvestment USA</title>
+<title>Withdraw - WeltaceInvestment USA</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
-.card{background:#fff;padding:30px;border-radius:12px;max-width:500px;margin:50px auto;box-shadow:0 4px 15px #ccc;border-top:5px solid #3C3B6E}
-h2{color:#3C3B6E;text-align:center}
-.info{background:#E6F0FF;padding:15px;border-radius:8px;margin:15px 0;word-break:break-all;border-left:4px solid #B22234}
-input{width:100%;padding:12px;margin:10px 0;border:2px solid #3C3B6E;border-radius:8px;box-sizing:border-box}
-.btn{background:#3C3B6E;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer;font-size:16px}
+.card{background:#fff;padding:30px;border-radius:12px;max-width:500px;margin:50px auto;box-shadow:0 4px 15px #ccc;border-top:5px solid #B22234}
+h2{color:#B22234;text-align:center}
+label{font-weight:bold;color:#3C3B6E;margin-top:10px;display:block}
+select, input{width:100%;padding:12px;margin:10px 0;border:2px solid #3C3B6E;border-radius:8px;box-sizing:border-box;font-size:15px}
+.btn{background:#B22234;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer;font-size:16px}
 .btn:hover{opacity:0.9}
-.copy{font-size:12px;color:#B22234;cursor:pointer;text-decoration:underline}
+.note{font-size:13px;color:#555;background:#FFF3CD;padding:10px;border-radius:8px;margin:15px 0}
+.balance{color:#28a745;font-size:18px;font-weight:bold;text-align:center;margin-bottom:15px}
 </style>
 </head>
 <body>
 <div class="card">
-<h2>🇺🇸 Deposit Funds</h2>
+<h2>💸 Withdraw Funds</h2>
 
-<p style="text-align:center;color:#555">Send ETH to the wallet below. Min: $50</p>
+<div class="balance">Available Balance: $<span id="bal">0.00</span></div>
 
-<div class="info">
-<b>ETH Wallet Address:</b><br>
-<code id="ethWallet">0xYOUR_ETH_WALLET_ADDRESS_HERE</code><br>
-<span class="copy" onclick="copyWallet()">Click to Copy</span>
+<label>Choose Withdraw Method:</label>
+<select id="wtype" onchange="changeMethod()">
+  <option value="Bank">🏦 Bank Account</option>
+  <option value="Wallet">🪙 Crypto Wallet</option>
+</select>
+
+<div id="bankFields">
+  <label>Select USA Bank / Credit Union:</label>
+  <select id="bankName">
+    <option value="">-- Select Bank --</option>
+    <optgroup label="Big Banks">
+      <option>Chase Bank</option>
+      <option>Bank of America</option>
+      <option>Wells Fargo</option>
+      <option>Citibank</option>
+      <option>U.S. Bank</option>
+      <option>PNC Bank</option>
+      <option>Capital One</option>
+      <option>TD Bank</option>
+    </optgroup>
+    <optgroup label="Credit Unions">
+      <option>Navy Federal Credit Union</option>
+      <option>State Employees' Credit Union</option>
+      <option>Pentagon Federal Credit Union</option>
+      <option>Alliant Credit Union</option>
+      <option>Golden 1 Credit Union</option>
+      <option>Rancho Federal Credit Union</option>
+      <option>Other Credit Union</option>
+    </optgroup>
+    <optgroup label="Other">
+      <option>Other Bank</option>
+    </optgroup>
+  </select>
+  
+  <input type="text" id="accountName" placeholder="Account Holder Full Name">
+  <input type="text" id="accountNumber" placeholder="Account Number">
+  <input type="text" id="routing" placeholder="Routing Number / ABA">
 </div>
 
-<input type="number" id="amount" placeholder="Enter Amount $">
-<input type="text" id="txid" placeholder="ETH Transaction Hash / Proof">
-<button onclick="submitDeposit()" class="btn">Submit Deposit</button>
+<div id="walletFields" style="display:none">
+  <input type="text" id="cryptoType" placeholder="Crypto Type: ETH, BTC, USDT">
+  <input type="text" id="walletAddress" placeholder="Your ETH/BTC Wallet Address">
+</div>
 
-<p style="font-size:13px;color:#B22234;text-align:center;margin-top:15px">Admin will approve in 10 minutes after confirmation</p>
-<a href="dashboard.html" style="display:block;text-align:center;margin-top:10px;color:#3C3B6E">← Back to Dashboard</a>
+<label>Amount to Withdraw $</label>
+<input type="number" id="amount" placeholder="Min $20">
+
+<div class="note">
+<b>Note:</b> Withdrawals are processed within 24 hours. ACH takes 1-3 business days.
+</div>
+
+<button onclick="submitWithdraw()" class="btn">Request Withdraw</button>
+<a href="dashboard.html" style="display:block;text-align:center;margin-top:15px;color:#3C3B6E">← Back to Dashboard</a>
 </div>
 
 <script>
-function copyWallet(){
-  let wallet = document.getElementById("ethWallet").innerText;
-  navigator.clipboard.writeText(wallet);
-  alert("ETH Wallet Copied!");
+// LOAD BALANCE
+window.onload = function(){
+  document.getElementById("bal").innerText = localStorage.getItem("userBalance") || "0.00";
 }
 
-function submitDeposit(){
-  let amount = document.getElementById("amount").value;
-  let txid = document.getElementById("txid").value;
-  if(!amount || !txid){ alert("Fill amount and TX Hash"); return; }
-  
-  let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-  deposits.push({amount:amount, txid:txid, status:"Pending", date:new Date().toLocaleString()});
-  localStorage.setItem("deposits", JSON.stringify(deposits));
-  
-  alert("Deposit Submitted! Waiting for approval.");
-  window.location.href = "dashboard.html";
+function changeMethod(){
+  let type = document.getElementById("wtype").value;
+  if(type == "Bank"){
+    document.getElementById("bankFields").style.display = "block";
+    document.getElementById("walletFields").style.display = "none";
+  } else {
+    document.getElementById("bankFields").style.display = "none";
+    document.getElementById("walletFields").style.display = "block";
+  }
 }
-</script>
-</body>
-</html>
+
+function submitWithdraw(){
+  let type = document.getElementById("wtype").value;
+  let amount = document.getElementById("amount").value;
+  let balance = parseFloat(localStorage.getItem("userBalance") || "0");
+  
+  if(!amount || amount < 20){ alert("Min withdraw is $20"); return; }
+  if(parseFloat(amount) > balance){ alert("Insufficient Balance"); return; }
+  
+  let details = "";
+  if(type == "Bank"){
+    let bank = document.getElementById("bankName").value;
