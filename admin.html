@@ -1,50 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head><title>Admin Panel</title>
-<style>
-body{background:#111;color:#fff;font-family:Arial;padding:20px}
-table{width:100%;background:#222;border-collapse:collapse}
-th,td{padding:12px;border:1px solid #444;text-align:left}
-th{background:#3C3B6E}
-input{padding:8px}
-.btn{background:#28a745;color:#fff;border:none;padding:8px 12px;cursor:pointer;border-radius:5px}
-</style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin - WeltaceInvestment</title>
+  <style>
+    body{font-family:Arial;margin:20px;background:#f6f8ff;color:#0b2545}
+    .card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 4px 18px rgba(2,6,23,0.08);max-width:900px;margin:0 auto}
+    input,textarea,select{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ddd}
+    button{background:#002B7F;color:#fff;padding:8px 12px;border-radius:6px;border:none}
+    .row{display:flex;gap:10px}
+    .col{flex:1}
+    .plans{display:flex;gap:8px;flex-wrap:wrap}
+    .plan{background:#f0f4ff;padding:8px;border-radius:6px;border:1px solid #d9e2ff}
+  </style>
 </head>
 <body>
-<h1>🇺🇸 Admin Panel - All Users</h1>
-<table id="userTable">
-<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>
-</table>
+  <div class="card">
+    <h2>WeltaceInvestment — Admin</h2>
+    <div id="loginArea">
+      <p>Sign in with your admin account.</p>
+      <input id="username" placeholder="username (email)">
+      <input id="password" type="password" placeholder="password">
+      <button id="loginBtn">Login</button>
+      <p id="loginMsg" style="color:#b00;display:none"></p>
+    </div>
+
+    <div id="adminArea" style="display:none">
+      <p>Signed in as <span id="who"></span> — <button id="logoutBtn">Logout</button></p>
+      <h3>Site text</h3>
+      <input id="siteTitle" placeholder="Site title">
+      <input id="siteTag" placeholder="Tagline">
+      <input id="siteFooter" placeholder="Footer">
+      <button id="saveText">Save Text</button>
+
+      <h3>Plans</h3>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <input id="planName" placeholder="Plan name">
+        <input id="planPrice" placeholder="Price">
+        <input id="planDetails" placeholder="Details">
+        <select id="planSection"><option value="current">Current</option><option value="old">Old</option></select>
+        <button id="addPlan">Add</button>
+      </div>
+
+      <div>
+        <h4>Current Plans</h4>
+        <div id="currentPlans" class="plans"></div>
+
+        <h4>Old Plans</h4>
+        <div id="oldPlans" class="plans"></div>
+      </div>
+
+      <h3>Export / Import</h3>
+      <button id="exportBtn">Export JSON</button>
+      <button id="importBtn">Import JSON</button>
+      <input id="importArea" style="display:block;margin-top:8px" placeholder='Paste JSON here when importing'>
+
+      <p style="color:#666;margin-top:12px">Note: This admin is backed by a server. Make sure .env contains ADMIN_USERNAME and ADMIN_PASSWORD.</p>
+    </div>
+  </div>
 
 <script>
-function loadUsers(){
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  let table = document.getElementById("userTable");
-  table.innerHTML = "<tr><th>Name</th><th>Email</th><th>Balance</th><th>Add $</th></tr>";
-
-  users.forEach((u, index) => {
-    table.innerHTML += `
-    <tr>
-      <td>${u.name}</td>
-      <td>${u.email}</td>
-      <td>$${parseFloat(u.balance).toFixed(2)}</td>
-      <td><input type="number" id="add${index}" placeholder="100">
-      <button class="btn" onclick="addBalance(${index})">Add</button></td>
-    </tr>`;
-  });
+async function api(path, opts){
+  const res = await fetch(path, opts);
+  if(res.status===401) throw new Error('Unauthorized');
+  if(res.status===204) return null;
+  return res.json();
 }
 
-function addBalance(index){
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  let amount = parseFloat(document.getElementById("add"+index).value);
-  if(amount > 0){
-    users[index].balance += amount;
-    localStorage.setItem("users", JSON.stringify(users));
-    loadUsers();
-    alert("$"+amount+" added to "+users[index].name);
-  }
+const loginArea = document.getElementById('loginArea');
+const adminArea = document.getElementById('adminArea');
+const loginMsg = document.getElementById('loginMsg');
+
+document.getElementById('loginBtn').onclick = async ()=>{
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  try{
+    await api('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+    loginArea.style.display='none'; adminArea.style.display='block';
+    document.getElementById('who').innerText = username;
+    await loadState();
+  }catch(e){ loginMsg.style.display='block'; loginMsg.innerText = 'Login failed'; }
 }
-loadUsers();
+
+document.getElementById('logoutBtn').onclick = async ()=>{
+  try{ await api('/api/logout',{method:'POST'}); }catch(e){}
+  adminArea.style.display='none'; loginArea.style.display='block';
+}
+
+async function loadState(){
+  try{
+    const data = await api('/api/state');
+    document.getElementById('siteTitle').value = data.title || '';
+    document.getElementById('siteTag').value = data.tagline || '';
+    document.getElementById('siteFooter').value = data.footer || '';
+    renderPlans('currentPlans', data.currentPlans||[]);
+    renderPlans('oldPlans', data.oldPlans||[]);
+  }catch(e){ alert('Could not load state: '+e.message); }
+}
+
+function renderPlans(elId, plans){
+  const cont = document.getElementById(elId); cont.innerHTML='';
+  plans.forEach((p,idx)=>{
+    const div = document.createElement('div'); div.className='plan';
+    div.innerHTML = `<strong>${escapeHtml(p.title)}</strong><div>${escapeHtml(p.price)}</div><div>${escapeHtml(p.details)}</div><button data-idx="${idx}" data-section="${elId==='currentPlans'?'current':'old'}">Remove</button>`;
+    div.querySelector('button').onclick = async (e)=>{
+      const section = e.target.dataset.section; const index = Number(e.target.dataset.idx);
+      await api('/api/plans/remove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({section,index})});
+      await loadState();
+    }
+    cont.appendChild(div);
+  })
+}
+
+document.getElementById('saveText').onclick = async ()=>{
+  const title = document.getElementById('siteTitle').value;
+  const tagline = document.getElementById('siteTag').value;
+  const footer = document.getElementById('siteFooter').value;
+  try{
+    const current = await api('/api/state');
+    current.title = title; current.tagline = tagline; current.footer = footer;
+    await api('/api/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(current)});
+    alert('Saved');
+  }catch(e){ alert('Save failed: '+e.message); }
+}
+
+document.getElementById('addPlan').onclick = async ()=>{
+  const title = document.getElementById('planName').value;
+  const price = document.getElementById('planPrice').value;
+  const details = document.getElementById('planDetails').value;
+  const section = document.getElementById('planSection').value;
+  if(!title) return alert('Enter name');
+  try{
+    await api('/api/plans/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({section,plan:{title,price,details}})});
+    document.getElementById('planName').value='';document.getElementById('planPrice').value='';document.getElementById('planDetails').value='';
+    await loadState();
+  }catch(e){ alert('Add failed: '+e.message); }
+}
+
+document.getElementById('exportBtn').onclick = async ()=>{
+  const data = await api('/api/state');
+  const txt = JSON.stringify(data,null,2);
+  if(navigator.clipboard) await navigator.clipboard.writeText(txt);
+  alert('Copied JSON to clipboard');
+}
+
+document.getElementById('importBtn').onclick = async ()=>{
+  const txt = document.getElementById('importArea').value;
+  if(!txt) return alert('Paste JSON to import');
+  try{
+    const obj = JSON.parse(txt);
+    await api('/api/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});
+    alert('Imported');
+    await loadState();
+  }catch(e){ alert('Import failed: '+e.message); }
+}
+
+function escapeHtml(text){
+  if(!text) return '';
+  return String(text).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; });
+}
+
+// Try to load state in case session exists
+(async ()=>{ try{ await loadState(); loginArea.style.display='none'; adminArea.style.display='block'; }catch(e){} })();
 </script>
 </body>
 </html>
