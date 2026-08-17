@@ -52,10 +52,24 @@ app.post('/api/logout', (req, res) => {
   });
 });
 
+// Protected admin state endpoint
 app.get('/api/state', requireAuth, async (req, res) => {
   try {
     const raw = await fs.readFile(DATA_FILE, 'utf8');
     const data = JSON.parse(raw);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Could not read site state', details: err.message });
+  }
+});
+
+// Public read-only endpoint (no auth) for the site state
+app.get('/public/state', async (req, res) => {
+  try {
+    const raw = await fs.readFile(DATA_FILE, 'utf8');
+    const data = JSON.parse(raw);
+    // Optional: set cache headers for performance
+    res.set('Cache-Control', 'public, max-age=30');
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Could not read site state', details: err.message });
