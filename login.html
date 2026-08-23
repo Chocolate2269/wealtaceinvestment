@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head><title>Login - WeltaceInvestment USA</title>
-<meta charset="UTF-8">
-<style>
-body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
-.card{background:#fff;padding:30px;border-radius:12px;max-width:400px;margin:50px auto;border-top:5px solid #B22234}
-h2{color:#B22234;text-align:center}
-input{width:100%;padding:12px;margin:10px 0;border:2px solid #B22234;border-radius:8px}
-.btn{background:#B22234;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer}
-</style>
-</head>
-<body>
-<div class="card">
-  <h2>🇺🇸 Login</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()" class="btn">Login</button>
-  <p style="text-align:center">No account? <a href="signup.html">Sign Up</a></p>
-</div>
 <script>
-function login(){
+async function login(){ 
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  let user = users.find(u => u.email === email && u.password === password);
-
-  if(user){
-    localStorage.setItem("currentUser", JSON.stringify(user));
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Wrong Email or Password");
-  }
+  let res = await fetch('/api/user-login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, password})
+  });
+  let data = await res.json();
+  if(data.error) return alert("Wrong Email or Password");
+  localStorage.setItem("currentUser", JSON.stringify(data.user));
+  window.location.href = "dashboard.html";
 }
 </script>
-</body>
-</html>
