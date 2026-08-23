@@ -1,46 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Sign Up - WeltaceInvestment USA</title>
-<meta charset="UTF-8">
-<style>
-body{margin:0;font-family:Arial;background:#F0F4FF;padding:20px}
-.card{background:#fff;padding:30px;border-radius:12px;max-width:400px;margin:50px auto;border-top:5px solid #3C3B6E}
-h2{color:#3C3B6E;text-align:center}
-input{width:100%;padding:12px;margin:10px 0;border:2px solid #3C3B6E;border-radius:8px}
-.btn{background:#28a745;color:#fff;padding:15px;border:none;border-radius:8px;width:100%;font-weight:bold;cursor:pointer}
-</style>
-</head>
-<body>
-<div class="card">
-  <h2>🇺🇸 Create Account</h2>
-  <input type="text" id="name" placeholder="Full Name">
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="signup()" class="btn">Sign Up</button>
-  <p style="text-align:center">Already have account? <a href="login.html">Login</a></p>
-</div>
 <script>
-function signup(){
+async function signup(){ 
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-
-  if(!name ||!email ||!password){ alert("Fill all fields"); return; }
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  if(users.find(u => u.email === email)){
-    alert("Email already exists. Please login.");
-    return;
-  }
-
-  users.push({name: name, email: email, password: password, balance: 0.00});
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Account Created! Please Login");
-  window.location.href = "login.html";
+  let res = await fetch('/api/signup', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name, email, password})
+  });
+  let data = await res.json();
+  if(data.error) return alert(data.error);
+  alert("Account Created!");
+  window.location.href = "login.html"; 
 }
 </script>
-</body>
-</html>
