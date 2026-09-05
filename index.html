@@ -129,7 +129,14 @@ footer{background:#002B7F;color:#fff;padding:20px;margin-top:30px;font-size:14px
 // WARNING: This is client-side only and uses a hardcoded password — not secure for production.
 const ADMIN_PASSWORD = 'WeltaceAdmin!2026'; // change this if you want
 let isAdmin = false;
-
+const firebaseConfig = {
+  apiKey: "AIzaSyAHRI0x1RAuF95LQcbwVz9gs_LZ4SekCuI",
+  authDomain: "wealtaceinvestment-71d78.firebaseapp.com",
+  projectId: "wealtaceinvestment-71d78",
+  storageBucket: "wealtaceinvestment-71d78.firebasestorage.app",
+  messagingSenderId: "886928834140",
+  appId: "1:886928834140:web:06feae202f31e76cbd3099"
+};
 function openAdmin(e){
   e && e.preventDefault();
   document.getElementById('adminOverlay').style.display = 'flex';
