@@ -98,7 +98,14 @@ async function loadState(){
     renderPlans('oldPlans', data.oldPlans||[]);
   }catch(e){ alert('Could not load state: '+e.message); }
 }
-
+const firebaseConfig = {
+  apiKey: "AIzaSyAHRI0x1RAuF95LQcbwVz9gs_LZ4SekCuI",
+  authDomain: "wealtaceinvestment-71d78.firebaseapp.com",
+  projectId: "wealtaceinvestment-71d78",
+  storageBucket: "wealtaceinvestment-71d78.firebasestorage.app",
+  messagingSenderId: "886928834140",
+  appId: "1:886928834140:web:06feae202f31e76cbd3099"
+};
 function renderPlans(elId, plans){
   const cont = document.getElementById(elId); cont.innerHTML='';
   plans.forEach((p,idx)=>{
